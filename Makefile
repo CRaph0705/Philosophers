@@ -6,7 +6,7 @@
 #    By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:55:20 by rcochran          #+#    #+#              #
-#    Updated: 2025/07/17 10:41:40 by rcochran         ###   ########.fr        #
+#    Updated: 2025/07/17 11:43:35 by rcochran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ NAME		= 	philo
 
 INCLUDES	= 	-I ./includes
 
-FILES		= 	
+FILES		= 	thread \
+				utils
 
 SRC_DIR		= 	src/
 SRC_FILES	=	$(addsuffix .c, $(FILES))
@@ -46,11 +47,11 @@ fclean : clean
 re : fclean all
 
 $(NAME) : $(OBJ_DIR) $(OBJ) $(OBJ_MAIN)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(OBJ_MAIN) -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDES) -pthread $(OBJ) $(OBJ_MAIN) -o $(NAME)
 
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -pthread -c $< -o $@
 
 $(OBJ_DIR) : 
 	mkdir -p $(OBJ_DIR)

@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:47 by rcochran          #+#    #+#             */
-/*   Updated: 2025/05/19 10:56:12 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:33:37 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+
+int	ft_atoi(const char *str);
+
 #endif
