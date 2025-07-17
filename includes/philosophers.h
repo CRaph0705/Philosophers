@@ -13,4 +13,17 @@
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
+/**
+ * No Libft
+ * external functions :
+ * memset, printf, malloc, free, write,
+ * usleep, gettimeofday, pthread_create,
+ * pthread_detach, pthread_join, pthread_mutex_init,
+ * pthread_mutex_destroy, pthread_mutex_lock,
+ * pthread_mutex_unlock
+ */
+# include <pthread.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
 #endif

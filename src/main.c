@@ -12,6 +12,17 @@
 
 #include "philosophers.h"
 
+/**
+ *  Mandatory part
+ * • Each philosopher must be represented as a separate thread.
+ * • There is one fork between each pair of philosophers.
+ * Therefore, if there are several philosophers, 
+ * each philosopher has a fork on their left side and a fork on their right side.
+ * If there is only one philosopher, they will have access to just one fork.
+ * • To prevent philosophers from duplicating forks, you should protect each fork’s state
+ * with a mutex.
+*/
+
 int	main(int ac, char **av)
 {
 	(void)ac;
