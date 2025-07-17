@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/07/17 13:49:19 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:21:06 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	main_func(int nb_philo,
 void	main_func(int nb_philo,
 			int time_to_die, int time_to_eat, int time_to_sleep)
 {
+	(void)nb_philo;
 	printf("time_to_die = %d, time_to_eat = %d,\
 		 time_to_sleep = %d\n", time_to_die, time_to_eat, time_to_sleep);
 }
@@ -54,8 +55,7 @@ int	main(int ac, char **av)
 	if (ac < 5)
 		return (printf("Usage : ./philo <numer_of_philosophers> <time_to_die>\
 			 <time_to_eat> <time_to_sleep>\n"), 1);
-	if (init_p_struct())
-		return (1);
+
 	philo_nb = ft_atoi(av[1]);
 	time_to_die = ft_atoi(av[2]);
 	time_to_eat = ft_atoi(av[3]);

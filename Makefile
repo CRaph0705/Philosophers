@@ -6,7 +6,7 @@
 #    By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:55:20 by rcochran          #+#    #+#              #
-#    Updated: 2025/07/17 11:43:35 by rcochran         ###   ########.fr        #
+#    Updated: 2025/07/17 15:20:13 by rcochran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,11 @@ NAME		= 	philo
 INCLUDES	= 	-I ./includes
 
 FILES		= 	thread \
-				utils
+				utils \
+				s_fork/debug_display \
+				s_fork/new_fork \
+				s_monitor/new \
+				s_philo/new \
 
 SRC_DIR		= 	src/
 SRC_FILES	=	$(addsuffix .c, $(FILES))
@@ -29,6 +33,7 @@ SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 MAIN		=	main.c
 OBJ_DIR		= 	obj/
+# OBJ_DIR		= 	$(sort $(dir $(OBJ)))
 OBJ			=	$(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 OBJ_MAIN	=	$(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC_DIR)$(MAIN))
 
@@ -55,5 +60,8 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 $(OBJ_DIR) : 
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/s_fork
+	mkdir -p $(OBJ_DIR)/s_monitor
+	mkdir -p $(OBJ_DIR)/s_philo
 
 debug : all
