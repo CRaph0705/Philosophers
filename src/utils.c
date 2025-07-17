@@ -6,11 +6,11 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 11:30:43 by rcochran          #+#    #+#             */
-/*   Updated: 2025/07/17 11:32:44 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/07/17 13:49:28 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 int	ft_atoi(const char *str);
 
@@ -41,3 +41,9 @@ int	ft_atoi(const char *str)
 	}
 	return (num * sign);
 }
+
+/* memset, printf, malloc, free, write,
+usleep, gettimeofday, pthread_create,
+pthread_detach, pthread_join, pthread_mutex_init,
+pthread_mutex_destroy, pthread_mutex_lock,
+pthread_mutex_unlock */
