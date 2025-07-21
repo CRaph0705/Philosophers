@@ -6,11 +6,14 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/05/19 13:59:46 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:21:06 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
+
+void	main_func(int nb_philo,
+			int time_to_die, int time_to_eat, int time_to_sleep);
 
 /**
  *  Mandatory part
@@ -19,13 +22,44 @@
  * Therefore, if there are several philosophers, 
  * each philosopher has a fork on their left side and a fork on their right side.
  * If there is only one philosopher, they will have access to just one fork.
- * • To prevent philosophers from duplicating forks, you should protect each fork’s state
- * with a mutex.
+ * • To prevent philosophers from duplicating forks,
+ * you should protect each fork’s state with a mutex.
 */
+void	main_func(int nb_philo,
+			int time_to_die, int time_to_eat, int time_to_sleep)
+{
+	(void)nb_philo;
+	printf("time_to_die = %d, time_to_eat = %d,\
+		 time_to_sleep = %d\n", time_to_die, time_to_eat, time_to_sleep);
+}
+
+int	new_philosoph(void)
+{
+	t_philo	*philo;
+
+	philo = malloc(sizeof(t_philo));
+	if (!philo)
+	{
+		return (1);
+	}
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
+	int	philo_nb;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+
+	if (ac < 5)
+		return (printf("Usage : ./philo <numer_of_philosophers> <time_to_die>\
+			 <time_to_eat> <time_to_sleep>\n"), 1);
+
+	philo_nb = ft_atoi(av[1]);
+	time_to_die = ft_atoi(av[2]);
+	time_to_eat = ft_atoi(av[3]);
+	time_to_sleep = ft_atoi(av[4]);
+	main_func(philo_nb, time_to_die, time_to_eat, time_to_sleep);
 	return (0);
 }
