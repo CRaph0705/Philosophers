@@ -6,7 +6,7 @@
 #    By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:55:20 by rcochran          #+#    #+#              #
-#    Updated: 2025/07/17 15:20:13 by rcochran         ###   ########.fr        #
+#    Updated: 2025/08/11 16:44:10 by rcochran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,7 @@ NAME		= 	philo
 INCLUDES	= 	-I ./includes
 
 FILES		= 	thread \
-				utils \
-				s_fork/debug_display \
-				s_fork/new_fork \
+				utils/ft_atoi \
 				s_monitor/new \
 				s_philo/new \
 
@@ -60,8 +58,9 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 $(OBJ_DIR) : 
 	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)/s_fork
-	mkdir -p $(OBJ_DIR)/s_monitor
-	mkdir -p $(OBJ_DIR)/s_philo
+	mkdir -p $(OBJ_DIR)s_fork
+	mkdir -p $(OBJ_DIR)s_monitor
+	mkdir -p $(OBJ_DIR)s_philo
+	mkdir -p $(OBJ_DIR)utils
 
 debug : all
