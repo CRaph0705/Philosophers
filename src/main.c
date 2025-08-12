@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/11 14:50:19 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/12 11:10:16 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,23 @@ pthread_mutex_t	mutex;
 	return (0);
 } */
 
-void	routine(void)
+void	*routine()
 {
 	printf("Coucou je suis un thread\n");
 	sleep(3);
 	printf("fin du thread\n");
+	return (NULL);
 }
 int main(void)
 {
 	pthread_t t1, t2;
-	if (!pthread_create(&t1, NULL, &routine, NULL))
+	if (pthread_create(&t1, NULL, &routine, NULL) != 0)
 		return (1);
-	if (!pthread_create(&t2, NULL, &routine, NULL))
-		return (1);
-	if (!pthread_join(t1, NULL))
-		return (1);
-	if (!pthread_join(t2, NULL))
-		return (1);
+	if (pthread_create(&t2, NULL, &routine, NULL) != 0)
+		return (2);
+	if (pthread_join(t1, NULL) != 0)
+		return (3);
+	if (pthread_join(t2, NULL) != 0)
+		return (4);
 	return (0);
 }		
