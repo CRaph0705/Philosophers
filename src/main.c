@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 16:48:02 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 17:53:37 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	start_sim(t_data *data)
 	while (i < data->nb_philo)
 	{
 		if (pthread_create(&data->philos[i]->thread, NULL,
-				&routine, (void *)data) != 0)
+				&routine, (void *)data->philos[i]) != 0)
 			return (perror("Thread error\n"), 1);
 		i++;
 	}
