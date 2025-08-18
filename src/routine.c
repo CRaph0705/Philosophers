@@ -1,24 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_proto.h                                      :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/14 16:57:07 by rcochran         ###   ########.fr       */
+/*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
+/*   Updated: 2025/08/14 17:03:21 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_PROTO_H
-# define PHILO_PROTO_H
-
-int	ft_atoi(const char *str);
-
+#include "philo.h"
 
 void	do_eat(void);
 void	do_sleep(void);
 void	do_think(void);
 void	*routine();
 
-#endif
+void	do_eat(void)
+{
+	printf("eating...\n");
+	sleep(3);
+}
+
+void	do_sleep(void)
+{
+	printf("sleeping...\n");
+	sleep(3);
+}
+
+void	do_think(void)
+{
+	printf("thinking...\n");
+	sleep(3);
+}
+
+void	*routine()
+{
+	do_eat();
+	do_sleep();
+	do_think();
+	return (NULL);
+}
