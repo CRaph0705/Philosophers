@@ -6,7 +6,7 @@
 #    By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:55:20 by rcochran          #+#    #+#              #
-#    Updated: 2025/08/14 17:03:12 by rcochran         ###   ########.fr        #
+#    Updated: 2025/08/18 14:21:27 by rcochran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,12 @@ NAME		= 	philo
 
 INCLUDES	= 	-I ./includes
 
-FILES		= 	thread \
+FILES		= 	s_data/t_data \
+				s_fork/t_fork \
+				thread \
 				utils/ft_atoi \
 				s_monitor/new \
-				s_philo/new \
+				s_philo/t_philo \
 				routine
 
 SRC_DIR		= 	src/
@@ -59,6 +61,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 $(OBJ_DIR) : 
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)s_data
 	mkdir -p $(OBJ_DIR)s_fork
 	mkdir -p $(OBJ_DIR)s_monitor
 	mkdir -p $(OBJ_DIR)s_philo
