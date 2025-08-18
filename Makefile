@@ -6,7 +6,7 @@
 #    By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:55:20 by rcochran          #+#    #+#              #
-#    Updated: 2025/08/18 14:21:27 by rcochran         ###   ########.fr        #
+#    Updated: 2025/08/18 18:59:21 by rcochran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 .PHONY : all clean fclean re debug
 
 CC			= 	cc
-CFLAGS		= 	-Wall -Werror -Wextra -MMD -MP
+CFLAGS		= 	-Wall -Werror -Wextra -MMD -MP -g3
 AR			=	ar -rcs
 NAME		= 	philo
 
@@ -23,7 +23,10 @@ INCLUDES	= 	-I ./includes
 FILES		= 	s_data/t_data \
 				s_fork/t_fork \
 				thread \
+				utils/args_are_numbers \
 				utils/ft_atoi \
+				utils/is_digit \
+				utils/is_numeric \
 				s_monitor/new \
 				s_philo/t_philo \
 				routine

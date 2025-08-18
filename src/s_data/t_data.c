@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 16:38:18 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:43:26 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	invalid_args(int ac, char **av)
 	int			time_to_sleep;
 	int			meal_number;
 
-	if (ac < 5 || ac > 7)
+	if (ac < 5 || ac > 7 || !args_are_numbers(ac, av))
 		return (printf("Usage : ./philo <number_of_philosophers> <time_to_die> \
 <time_to_eat> <time_to_sleep>\n"), 1);
 	nb_philo = ft_atoi(av[1]);
@@ -47,12 +47,9 @@ int	invalid_args(int ac, char **av)
 t_data	*init_data(int ac, char **av)
 {
 	t_data	*data;
-	int		meal_number;
 
 	if (invalid_args(ac, av))
 		return (NULL);
-	if (ac == 6)
-		meal_number = ft_atoi(av[5]);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (perror("Error: malloc failed\n"), NULL);
@@ -60,7 +57,10 @@ t_data	*init_data(int ac, char **av)
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);
-	data->nb_meal = meal_number;
+	if (ac == 6)
+		data->max_meal = ft_atoi(av[5]);
+	else
+		data->max_meal = -1;
 	data->philos = NULL;
 	data->forks = NULL;
 	if (init_forks(data))

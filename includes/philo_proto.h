@@ -6,14 +6,12 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 16:45:50 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:27:02 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_PROTO_H
 # define PHILO_PROTO_H
-
-int		ft_atoi(const char *str);
 
 /* S_DATA.C */
 
@@ -42,17 +40,42 @@ void	free_philos(t_philo **philo);
 
 /* S_FORK.C */
 
-void	free_forks(t_fork **forks);
+void	free_forks(t_mutex *forks);
 
 /* ROUTINE.C */
 
 /*  */
-void	do_eat(int t_eat);
+void	do_eat(t_philo *philo);
+
 /*  */
-void	do_sleep(int t_sleep);
+void	do_sleep(t_philo *philo);
+
 /*  */
-void	do_think(void);
+void	do_think(t_philo *philo);
+
 /*  */
-void	*routine(void *data);
+void	*routine(void *p_philo);
+
+/* UTILS */
+
+/*  */
+int		is_numeric(char *str);
+
+/*  */
+int		is_digit(int c);
+
+/*  */
+int		ft_atoi(const char *str);
+
+/*  */
+int		args_are_numbers(int ac, char **av);
+
+/* TIME.C */
+
+/*  */
+time_t	get_time_in_ms(void);
+
+/* MAIN.C */
+int		set_last_meal(t_data *data);
 
 #endif

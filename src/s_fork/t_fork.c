@@ -6,29 +6,41 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:03:35 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 16:38:36 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:16:24 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 int		init_forks(t_data *data);
-void	free_forks(t_fork **forks);
+void	free_forks(t_mutex *forks);
 
+/**
+ * @brief init_forks
+ * 
+ * @param *data the main struct
+ * 
+ */
 int	init_forks(t_data *data)
 {
-	int		nb_forks;
-	t_fork	**forks;
+	int		i;
+	t_mutex	*mtx;
 
-	nb_forks = data->nb_philo;
-	forks = malloc(sizeof(t_fork) * nb_forks);
-	if (!forks)
+	i = 0;
+	mtx = malloc(sizeof(t_mutex) * data->nb_philo);
+	if (!mtx)
 		return (perror("Error : malloc failed\n"), 1);
-	data->forks = forks;
+	while (i < data->nb_philo)
+	{
+		if (pthread_mutex_init(&mtx[i], 0) != 0)
+			return (perror("Error : mutex init failed\n"), 1);
+		i++;
+	}
+	data->forks = mtx;
 	return (0);
 }
 
-void	free_forks(t_fork **forks)
+void	free_forks(t_mutex *forks)
 {
 	(void)forks;
 	return ;

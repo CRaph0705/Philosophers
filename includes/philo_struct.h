@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 16:46:51 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:25:34 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,15 @@ typedef struct s_philo
 	int				id;
 	pthread_t		thread;
 	bool			is_dead;
-	bool			is_eating;
-	bool			is_sleeping;
-	bool			is_thinking;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	t_mutex			*m_right;
 	t_mutex			*m_left;
-	t_fork			*f_right;
-	t_fork			*f_left;
+	int				last_meal;
+	struct s_data	*data;
+	int				nb_meal;
 }	t_philo;
-
-/** 
-typedef struct s_fork
-{
-	t_mutex			*mutex;
-	bool			is_used;
-}	t_fork;
-*/
-typedef struct s_fork
-{
-	t_mutex			*mutex;
-	bool			is_used;
-}	t_fork;
 
 /** 
 typedef	struct s_data
@@ -68,7 +53,7 @@ typedef	struct s_data
 	int	time_to_eat;
 	int	time_to_sleep;
 	t_philo	*philos;
-	t_fork	*forks;
+	t_mutex	**forks;
 	int nb_meal;
 	int	has_stopped;
 }	t_data;
@@ -80,8 +65,8 @@ typedef struct s_data
 	int		time_to_eat;
 	int		time_to_sleep;
 	t_philo	**philos;
-	t_fork	**forks;
-	int		nb_meal;
+	t_mutex	*forks;
+	int		max_meal;
 	int		has_stopped;
 }	t_data;
 
