@@ -6,14 +6,12 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 17:57:55 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:44:32 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_PROTO_H
 # define PHILO_PROTO_H
-
-int		ft_atoi(const char *str);
 
 /* S_DATA.C */
 
@@ -57,5 +55,12 @@ void	do_think(t_philo *philo);
 
 /*  */
 void	*routine(void *p_philo);
+
+
+/* UTILS */
+int		is_numeric(char *str);
+int		is_digit(int c);
+int		ft_atoi(const char *str);
+int		args_are_numbers(int ac, char **av);
 
 #endif

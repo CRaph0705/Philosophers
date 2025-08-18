@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 18:10:19 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:43:26 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	invalid_args(int ac, char **av)
 	int			time_to_sleep;
 	int			meal_number;
 
-	if (ac < 5 || ac > 7)
+	if (ac < 5 || ac > 7 || !args_are_numbers(ac, av))
 		return (printf("Usage : ./philo <number_of_philosophers> <time_to_die> \
 <time_to_eat> <time_to_sleep>\n"), 1);
 	nb_philo = ft_atoi(av[1]);
@@ -59,6 +59,8 @@ t_data	*init_data(int ac, char **av)
 	data->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		data->max_meal = ft_atoi(av[5]);
+	else
+		data->max_meal = -1;
 	data->philos = NULL;
 	data->forks = NULL;
 	if (init_forks(data))

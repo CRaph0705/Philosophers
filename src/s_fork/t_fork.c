@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:03:35 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 17:26:31 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:16:24 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		init_forks(t_data *data);
 void	free_forks(t_mutex *forks);
-t_fork	*new_fork();
 
 /**
  * @brief init_forks

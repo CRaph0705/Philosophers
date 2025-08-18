@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 18:13:45 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:25:03 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	*routine(void *p_philo)
 
 	i = 0;
 	philo = (void *)(p_philo);
-	while (philo->data->has_stopped == 0 && ((!philo->data->max_meal) || philo->nb_meal < philo->data->max_meal))
+	//i < 10 just for dev
+	while (i < 10 && (philo->data->has_stopped == 0 && 
+		((philo->data->max_meal < 0) || philo->nb_meal < philo->data->max_meal)))
 	{	
 		do_eat(philo);
 		do_sleep(philo);
