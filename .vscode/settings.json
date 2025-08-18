@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"philo_struct.h": "c"
+		"philo_struct.h": "c",
+		"pthread.h": "c"
 	}
 }
