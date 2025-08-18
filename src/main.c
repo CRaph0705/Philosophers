@@ -6,13 +6,11 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 16:30:55 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:48:02 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-
 /**
  *  Mandatory part
  * • Each philosopher must be represented as a separate thread.
@@ -23,9 +21,6 @@
  * • To prevent philosophers from duplicating forks,
  * you should protect each fork’s state with a mutex.
 */
-
-pthread_mutex_t	mutex;
-
 
 int	start_sim(t_data *data)
 {
@@ -47,7 +42,7 @@ int	start_sim(t_data *data)
 	return (0);
 }
 
-int		stop_sim(t_data *data)
+int	stop_sim(t_data *data)
 {
 	int	i;
 
@@ -64,29 +59,14 @@ int		stop_sim(t_data *data)
 
 int	main(int ac, char **av)
 {
-	// pthread_t	p1;
+	t_data			*data;
+	pthread_mutex_t	mutex;
 
 	pthread_mutex_init(&mutex, NULL);
-
-
-	// pthread_t t1, t2;
-	t_data	*data;
 	data = init_data(ac, av);
-	// init_sim(data);
 	if (!data)
 		return (42);
-	// if (pthread_create(&t1, NULL, &routine, (void *)data) != 0)
-	// 	return (1);
-	// if (pthread_create(&t2, NULL, &routine, (void *)data) != 0)
-	// 	return (2);
-	// if (pthread_join(t1, NULL) != 0)
-	// 	return (3);
-	// if (pthread_join(t2, NULL) != 0)
-	// 	return (4);
 	start_sim(data);
 	stop_sim(data);
 	return (0);
 }
-
-
-

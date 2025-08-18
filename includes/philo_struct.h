@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 16:15:31 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:46:51 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PHILO_STRUCT_H
 # include <pthread.h>
 
-typedef struct s_fork t_fork;
-typedef pthread_mutex_t t_mutex;
+typedef struct s_fork	t_fork;
+typedef pthread_mutex_t	t_mutex;
 
 /**
  * typedef struct s_philo
@@ -60,7 +60,6 @@ typedef struct s_fork
 	bool			is_used;
 }	t_fork;
 
-
 /** 
 typedef	struct s_data
 {
@@ -74,16 +73,16 @@ typedef	struct s_data
 	int	has_stopped;
 }	t_data;
 */
-typedef	struct s_data
+typedef struct s_data
 {
-	int	nb_philo;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
+	int		nb_philo;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
 	t_philo	**philos;
 	t_fork	**forks;
-	int nb_meal;
-	int	has_stopped;
+	int		nb_meal;
+	int		has_stopped;
 }	t_data;
 
 #endif

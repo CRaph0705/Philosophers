@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 12:05:41 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:42:59 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	do_think(void)
 
 void	*routine(void *p_data)
 {
-	t_data *data;
-	int i;
+	t_data	*data;
+	int		i;
 
 	i = 0;
 	data = (void *)(p_data);
-	while(data->has_stopped == 0 && i < 10)
+	while (data->has_stopped == 0 && i < 10)
 	{	
 		do_eat(data->time_to_eat);
 		do_sleep(data->time_to_sleep);

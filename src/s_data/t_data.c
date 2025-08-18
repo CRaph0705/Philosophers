@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 15:12:50 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:38:18 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_data	*init_data(int ac, char **av)
 
 void	free_data(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (data)

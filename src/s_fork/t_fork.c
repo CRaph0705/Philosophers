@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:03:35 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 15:23:18 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:38:36 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_forks(t_fork **forks);
 
 int	init_forks(t_data *data)
 {
-	int nb_forks;
+	int		nb_forks;
 	t_fork	**forks;
 
 	nb_forks = data->nb_philo;

@@ -6,15 +6,14 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:49:42 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 16:20:16 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:40:01 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init_philo(t_data *data);
-t_philo	*new_philo(int index, t_data *data);
-
+int			init_philo(t_data *data);
+t_philo		*new_philo(int index, t_data *data);
 
 t_philo	*new_philo(int index, t_data *data)
 {
@@ -37,11 +36,11 @@ t_philo	*new_philo(int index, t_data *data)
 
 int	init_philo(t_data *data)
 {
-	int	i;
+	int		i;
+	t_philo	**philos;
+
 	if (!data)
 		return (1);
-	t_philo **philos;
-
 	philos = malloc(sizeof(t_philo *) * data->nb_philo);
 	if (!philos)
 		return (1);
