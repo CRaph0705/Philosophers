@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 18:44:32 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:27:02 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,26 @@ void	do_think(t_philo *philo);
 /*  */
 void	*routine(void *p_philo);
 
-
 /* UTILS */
+
+/*  */
 int		is_numeric(char *str);
+
+/*  */
 int		is_digit(int c);
+
+/*  */
 int		ft_atoi(const char *str);
+
+/*  */
 int		args_are_numbers(int ac, char **av);
+
+/* TIME.C */
+
+/*  */
+time_t	get_time_in_ms(void);
+
+/* MAIN.C */
+int		set_last_meal(t_data *data);
 
 #endif

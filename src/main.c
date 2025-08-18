@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 17:53:37 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:27:48 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,21 @@
  * you should protect each fork’s state with a mutex.
 */
 
+int	set_last_meal(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (!data || !data->philos)
+		return (1);
+	while (data->philos[i] && i < data->nb_philo)
+	{
+		data->philos[i]->last_meal = 0;
+		i++;
+	}
+	return (0);
+}
+
 int	start_sim(t_data *data)
 {
 	int	i;
@@ -32,6 +47,7 @@ int	start_sim(t_data *data)
 		return (1);
 	if (!data->philos)
 		return (perror("Error : no philos\n"), 1);
+	set_last_meal(data);
 	while (i < data->nb_philo)
 	{
 		if (pthread_create(&data->philos[i]->thread, NULL,

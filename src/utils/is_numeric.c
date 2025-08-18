@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 18:33:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 19:02:43 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:25:51 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_numeric(char *str)
 		if (i == 0 && (str[i] == '-' || str[i] == '+'))
 			i++;
 		if (!is_digit(str[i]))
-				return (0);
+			return (0);
 		i++;
 	}
 	return (1);
