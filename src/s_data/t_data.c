@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 17:03:01 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:10:19 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_data	*init_data(int ac, char **av)
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
-		data->nb_meal = ft_atoi(av[5]);
+		data->max_meal = ft_atoi(av[5]);
 	data->philos = NULL;
 	data->forks = NULL;
 	if (init_forks(data))

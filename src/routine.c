@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 17:58:46 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:13:45 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	do_eat(t_philo *philo)
 {
 	printf("[TIMESTAMP_IN_MS] %d is eating\n", philo->id);
 	usleep(philo->time_to_eat);
+	philo->nb_meal += 1;
 }
 
 void	do_sleep(t_philo *philo)
@@ -42,7 +43,7 @@ void	*routine(void *p_philo)
 
 	i = 0;
 	philo = (void *)(p_philo);
-	while (philo->data->has_stopped == 0 && i < 10)
+	while (philo->data->has_stopped == 0 && ((!philo->data->max_meal) || philo->nb_meal < philo->data->max_meal))
 	{	
 		do_eat(philo);
 		do_sleep(philo);
