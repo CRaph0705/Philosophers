@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/14 16:51:27 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/18 12:11:35 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ typedef struct s_fork
 	t_mutex			*mutex;
 	bool			is_used;
 }	t_fork;
+
+typedef	struct s_data
+{
+	int	nb_philo;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	t_philo	*philos;
+	int nb_meal;
+	int	has_stopped;
+}	t_data;
 
 
 /* typedef struct s_monitor
