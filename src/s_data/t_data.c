@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 18:43:26 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:45:53 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_data	*init_data(int ac, char **av)
 		data->max_meal = -1;
 	data->philos = NULL;
 	data->forks = NULL;
+	data->has_stopped = 0;
 	if (init_forks(data))
 		return (NULL);
 	if (init_philo(data))

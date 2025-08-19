@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/19 15:38:56 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:19:35 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,7 @@ int	stop_sim(t_data *data)
 int	main(int ac, char **av)
 {
 	t_data			*data;
-	pthread_mutex_t	mutex;
 
-	pthread_mutex_init(&mutex, NULL);
 	data = init_data(ac, av);
 	if (!data)
 		return (42);
