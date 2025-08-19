@@ -6,7 +6,7 @@
 #    By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:55:20 by rcochran          #+#    #+#              #
-#    Updated: 2025/08/19 15:23:40 by rcochran         ###   ########.fr        #
+#    Updated: 2025/08/19 16:27:32 by rcochran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,10 @@ INCLUDES	= 	-I ./includes
 
 FILES		= 	s_data/t_data \
 				s_fork/t_fork \
-				thread \
 				utils/args_are_numbers \
 				utils/ft_atoi \
 				utils/is_digit \
 				utils/is_numeric \
-				s_monitor/new \
 				s_philo/t_philo \
 				routine \
 				time
