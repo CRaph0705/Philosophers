@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 19:27:48 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:38:56 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,23 @@
  * • To prevent philosophers from duplicating forks,
  * you should protect each fork’s state with a mutex.
 */
-
+//TODO valeur de offset a ajuster avec les tests
 int	set_last_meal(t_data *data)
 {
-	int	i;
+	int		i;
+	time_t	time;
+	time_t	offset;
 
 	i = 0;
+	offset = data->nb_philo * 20;
 	if (!data || !data->philos)
 		return (1);
+	time = get_time_in_ms();
+	data->start = time + offset;
+	printf("time = %ld\n", time);
 	while (data->philos[i] && i < data->nb_philo)
 	{
-		data->philos[i]->last_meal = 0;
+		data->philos[i]->last_meal = time + offset;
 		i++;
 	}
 	return (0);
