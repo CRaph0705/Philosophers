@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/19 15:33:03 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:27:19 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_philo
 	long			last_meal;
 	struct s_data	*data;
 	int				nb_meal;
+	t_mutex			mtx;
 }	t_philo;
 
 /** 

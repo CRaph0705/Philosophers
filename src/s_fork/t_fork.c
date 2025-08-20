@@ -6,14 +6,14 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:03:35 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 18:16:24 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:46:18 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 int		init_forks(t_data *data);
-void	free_forks(t_mutex *forks);
+void	free_forks(t_data *data);
 
 /**
  * @brief init_forks
@@ -24,24 +24,34 @@ void	free_forks(t_mutex *forks);
 int	init_forks(t_data *data)
 {
 	int		i;
-	t_mutex	*mtx;
+	t_mutex	*mtx_array;
 
 	i = 0;
-	mtx = malloc(sizeof(t_mutex) * data->nb_philo);
-	if (!mtx)
+	mtx_array = malloc(sizeof(t_mutex) * data->nb_philo);
+	if (!mtx_array)
 		return (perror("Error : malloc failed\n"), 1);
 	while (i < data->nb_philo)
 	{
-		if (pthread_mutex_init(&mtx[i], 0) != 0)
+		if (pthread_mutex_init(&mtx_array[i], 0) != 0)
 			return (perror("Error : mutex init failed\n"), 1);
 		i++;
 	}
-	data->forks = mtx;
+	data->forks = mtx_array;
 	return (0);
 }
 
-void	free_forks(t_mutex *forks)
+void	free_forks(t_data *data)
 {
-	(void)forks;
+	int	i;
+
+	i = 0;
+	if (!data->forks || !data->forks)
+		return ;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
+	free(data->forks);
 	return ;
 }

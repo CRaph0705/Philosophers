@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/19 15:38:56 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:01:55 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
  * • To prevent philosophers from duplicating forks,
  * you should protect each fork’s state with a mutex.
 */
-//TODO valeur de offset a ajuster avec les tests
 int	set_last_meal(t_data *data)
 {
 	int		i;
@@ -29,13 +28,15 @@ int	set_last_meal(t_data *data)
 	time_t	offset;
 
 	i = 0;
+	if (!data->nb_philo)
+		return (1);
 	offset = data->nb_philo * 20;
 	if (!data || !data->philos)
 		return (1);
 	time = get_time_in_ms();
 	data->start = time + offset;
 	printf("time = %ld\n", time);
-	while (data->philos[i] && i < data->nb_philo)
+	while (i < data->nb_philo && data->philos[i])
 	{
 		data->philos[i]->last_meal = time + offset;
 		i++;
@@ -82,9 +83,7 @@ int	stop_sim(t_data *data)
 int	main(int ac, char **av)
 {
 	t_data			*data;
-	pthread_mutex_t	mutex;
 
-	pthread_mutex_init(&mutex, NULL);
 	data = init_data(ac, av);
 	if (!data)
 		return (42);
