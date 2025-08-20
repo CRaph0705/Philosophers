@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 16:03:11 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:37:28 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ void	free_philos(t_data *data);
 /* S_FORK.C */
 
 void	free_forks(t_data *data);
+
+/* ROUTINE_UTILS.C */
+
+/*  */
+int		do_die(t_philo *philo);
+
+/*  */
+void	get_forks(t_philo *philo);
+
+/*  */
+void	put_forks(t_philo *philo);
+
+/*  */
+void	wait_for_start(t_philo *philo);
 
 /* ROUTINE.C */
 

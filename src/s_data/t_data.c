@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 14:21:36 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:31:40 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ int	invalid_args(int ac, char **av)
 
 t_data	*init_data(int ac, char **av)
 {
-	t_data	*data;
+	t_data			*data;
 	pthread_mutex_t	mutex;
 
-	if (invalid_args(ac, av))
-		return (NULL);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (perror("Error: malloc failed\n"), NULL);
@@ -65,7 +63,7 @@ t_data	*init_data(int ac, char **av)
 	data->philos = NULL;
 	data->forks = NULL;
 	data->has_stopped = 0;
-	if (pthread_mutex_init(&mutex, NULL)  != 0)
+	if (pthread_mutex_init(&mutex, NULL) != 0)
 		return (perror("Error : mutex error"), free_data(data), NULL);
 	data->mtx = mutex;
 	if (init_forks(data))

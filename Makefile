@@ -6,7 +6,7 @@
 #    By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:55:20 by rcochran          #+#    #+#              #
-#    Updated: 2025/08/19 16:27:32 by rcochran         ###   ########.fr        #
+#    Updated: 2025/08/20 16:37:40 by rcochran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ FILES		= 	s_data/t_data \
 				utils/is_digit \
 				utils/is_numeric \
 				s_philo/t_philo \
+				routine_utils \
 				routine \
 				time
 
