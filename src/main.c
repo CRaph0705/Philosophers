@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 12:01:55 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 15:09:48 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,17 @@ int	set_last_meal(t_data *data)
 	if (!data->nb_philo)
 		return (1);
 	offset = data->nb_philo * 20;
+	// offset = 0;
 	if (!data || !data->philos)
 		return (1);
 	time = get_time_in_ms();
-	data->start = time + offset;
-	printf("time = %ld\n", time);
+	// time = 0;
+	data->start_time = time + offset;
+	// printf("time = %ld\n", time);
 	while (i < data->nb_philo && data->philos[i])
 	{
 		data->philos[i]->last_meal = time + offset;
+		data->philos[i]->start_time = time + offset;
 		i++;
 	}
 	return (0);
@@ -48,7 +51,7 @@ int	start_sim(t_data *data)
 {
 	int	i;
 
-	printf("start\n");
+	// printf("start\n");
 	i = 0;
 	if (!data)
 		return (1);

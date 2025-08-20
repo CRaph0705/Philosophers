@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 11:18:38 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:03:11 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	free_forks(t_data *data);
 /* ROUTINE.C */
 
 /*  */
-void	do_eat(t_philo *philo);
+int		do_eat(t_philo *philo);
 
 /*  */
-void	do_sleep(t_philo *philo);
+int		do_sleep(t_philo *philo);
 
 /*  */
-void	do_think(t_philo *philo);
+int		do_think(t_philo *philo);
 
 /*  */
 void	*routine(void *p_philo);
