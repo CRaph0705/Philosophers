@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 11:31:58 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:01:55 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	set_last_meal(t_data *data)
 	time = get_time_in_ms();
 	data->start = time + offset;
 	printf("time = %ld\n", time);
-	while (data->philos[i] && i < data->nb_philo)
+	while (i < data->nb_philo && data->philos[i])
 	{
 		data->philos[i]->last_meal = time + offset;
 		i++;
