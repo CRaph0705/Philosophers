@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 11:27:19 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 15:41:19 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ typedef struct s_philo
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	t_mutex			*m_right;
-	t_mutex			*m_left;
+	unsigned int	m_right;
+	unsigned int	m_left;
 	long			last_meal;
 	struct s_data	*data;
 	int				nb_meal;
-	t_mutex			mtx;
+	time_t			start_time;
 }	t_philo;
 
 /** 
@@ -68,8 +68,10 @@ typedef struct s_data
 	t_philo	**philos;
 	t_mutex	*forks;
 	int		max_meal;
+	int		nb_meals;
+	t_mutex	mtx;
 	int		has_stopped;
-	time_t	start;
+	time_t	start_time;
 }	t_data;
 
 #endif

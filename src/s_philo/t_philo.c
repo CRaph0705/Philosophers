@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:49:42 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 11:44:07 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 15:44:57 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	free_philos(t_data *data);
 t_philo	*new_philo(int index, t_data *data)
 {
 	t_philo	*new;
-	pthread_mutex_t	mutex;
 
 	new = NULL;
 	if (data)
@@ -34,14 +33,18 @@ t_philo	*new_philo(int index, t_data *data)
 		new->time_to_eat = data->time_to_eat;
 		new->time_to_sleep = data->time_to_sleep;
 		new->data = data;
-		if (pthread_mutex_init(&mutex, NULL)  != 0)
-			return (perror("Error : mutex error"), free(new), NULL);
-		new->m_left = &data->forks[index];
-		new->m_left = &data->forks[(index + 1) % data->nb_philo];
-		new->mtx = mutex;
+		new->m_left = index;
+		new->m_right = (index + 1) % data->nb_philo;
+/* 		if (new->id %2)
+		{
+			new->m_left = (index + 1) % data->nb_philo;
+			new->m_right = index;
+		} */
 	}
 	return (new);
 }
+
+
 
 /* void *printeat(int die)
 {
@@ -91,7 +94,7 @@ void	free_philo(t_philo *philo)
 {
 	if (!philo)
 		return ;
-	pthread_mutex_destroy(&philo->mtx);
+	// pthread_mutex_destroy(&philo->mtx);
 	free(philo);
 }
 
