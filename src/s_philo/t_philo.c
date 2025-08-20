@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:49:42 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 15:44:57 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:29:47 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int			init_philo(t_data *data);
 t_philo		*new_philo(int index, t_data *data);
-void	free_philo(t_philo *philo);
-void	free_philos(t_data *data);
+void		free_philo(t_philo *philo);
+void		free_philos(t_data *data);
 
 t_philo	*new_philo(int index, t_data *data)
 {
@@ -35,37 +35,9 @@ t_philo	*new_philo(int index, t_data *data)
 		new->data = data;
 		new->m_left = index;
 		new->m_right = (index + 1) % data->nb_philo;
-/* 		if (new->id %2)
-		{
-			new->m_left = (index + 1) % data->nb_philo;
-			new->m_right = index;
-		} */
 	}
 	return (new);
 }
-
-
-
-/* void *printeat(int die)
-{
-	printf("%d", die);
-	return (NULL);
-} */
-
-
-/* mutex(mutex, die, printeat);
-
-void	*mutex(pthread_mutex_t *mut, int *die, void *(*f)())
-{
-	pthread_mutex_lock(mut);
-	int localdie = die;
-	while (condition)
-	{
-	}
-	
-	pthread_mutex_unlock(mut);
-	return (f(die)); //
-} */
 
 int	init_philo(t_data *data)
 {
@@ -89,22 +61,19 @@ int	init_philo(t_data *data)
 	return (0);
 }
 
-//TODO
 void	free_philo(t_philo *philo)
 {
 	if (!philo)
 		return ;
-	// pthread_mutex_destroy(&philo->mtx);
 	free(philo);
 }
-
 
 void	free_philos(t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
-	while(i < data->nb_philo)
+	while (i < data->nb_philo)
 	{
 		free_philo(data->philos[i]);
 		i++;
