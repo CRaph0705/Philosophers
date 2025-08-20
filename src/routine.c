@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 17:45:45 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 18:20:12 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int	do_think(t_philo *philo)
 			- (actual - philo->last_meal) - philo->time_to_eat) / 2;
 	if (time_to_think < 0)
 		time_to_think = 0;
-	printf("time to think = [%ld]\n", time_to_think);
 	pthread_mutex_lock(&philo->data->mtx);
 	printf("%ld %d is thinking\n", actual, philo->id);
 	pthread_mutex_unlock(&philo->data->mtx);
