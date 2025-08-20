@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:49:42 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 16:29:47 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 18:22:33 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_philo	*new_philo(int index, t_data *data)
 		new = malloc(sizeof(t_philo));
 		if (!new)
 			return (NULL);
-		new->id = index;
+		new->id = index + 1;
 		new->is_dead = 0;
 		new->time_to_die = data->time_to_die;
 		new->time_to_eat = data->time_to_eat;

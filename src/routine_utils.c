@@ -6,16 +6,16 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 16:51:07 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 17:31:08 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	wait_for_start(t_philo *philo);
 int		do_die(t_philo *philo);
 void	get_forks(t_philo *philo);
 void	put_forks(t_philo *philo);
-void	wait_for_start(t_philo *philo);
 
 void	wait_for_start(t_philo *philo)
 {
@@ -37,7 +37,10 @@ int	do_die(t_philo *philo)
 	actual = get_time_in_ms() - philo->start_time;
 	pthread_mutex_lock(&philo->data->mtx);
 	if (philo->data->has_stopped == 1)
-		return (pthread_mutex_unlock(&philo->data->mtx));
+	{
+		pthread_mutex_unlock(&philo->data->mtx);
+		return (0);
+	}
 	printf("%ld %d died\n", actual, philo->id);
 	philo->is_dead = 1;
 	philo->data->has_stopped = 1;
