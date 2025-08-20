@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/19 16:28:43 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:20:34 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ void	do_eat(t_philo *philo)
 	actual = get_time_in_ms();
 	if (actual - philo->last_meal > philo->time_to_die)
 		return (die(philo));
-	// TODO l44 la on prend les fourchettes
-	// puis on set le meal avant de liberer les fourchettes
+
 	printf("[%ld] %d is eating\n", actual, philo->id);// mutex pour proteger le printf
 	usleep(philo->time_to_eat);
 	philo->nb_meal += 1;
@@ -79,12 +78,6 @@ void	do_think(t_philo *philo)
 	usleep(100);
 }
 
-//i < 10 just for dev
-/* 
-while (i < 10 && (philo->data->has_stopped == 0
-		&& ((philo->data->max_meal < 0)
-			|| philo->nb_meal < philo->data->max_meal)))
-*/
 void	*routine(void *p_philo)
 {
 	t_philo	*philo;

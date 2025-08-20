@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/19 15:45:53 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:18:45 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	free_data(t_data *data)
 	if (data)
 	{
 		if (data->forks)
-			free_forks(data->forks);
+			free_forks(data);
 		if (data->philos)
-			free_philos(data->philos);
+			free_philos(data);
 		free(data);
 	}
 }

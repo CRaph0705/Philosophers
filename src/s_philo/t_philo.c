@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:49:42 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/19 16:27:00 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:44:07 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int			init_philo(t_data *data);
 t_philo		*new_philo(int index, t_data *data);
+void	free_philo(t_philo *philo);
+void	free_philos(t_data *data);
 
 t_philo	*new_philo(int index, t_data *data)
 {
@@ -34,6 +36,8 @@ t_philo	*new_philo(int index, t_data *data)
 		new->data = data;
 		if (pthread_mutex_init(&mutex, NULL)  != 0)
 			return (perror("Error : mutex error"), free(new), NULL);
+		new->m_left = &data->forks[index];
+		new->m_left = &data->forks[(index + 1) % data->nb_philo];
 		new->mtx = mutex;
 	}
 	return (new);
@@ -82,8 +86,27 @@ int	init_philo(t_data *data)
 	return (0);
 }
 
-void	free_philos(t_philo **philo)
+//TODO
+void	free_philo(t_philo *philo)
 {
-	(void)philo;
+	if (!philo)
+		return ;
+	pthread_mutex_destroy(&philo->mtx);
+	free(philo);
+}
+
+
+void	free_philos(t_data *data)
+{
+	int	i;
+	
+	i = 0;
+	while(i < data->nb_philo)
+	{
+		free_philo(data->philos[i]);
+		i++;
+	}
+	free(data->philos);
+	data->philos = NULL;
 	return ;
 }
