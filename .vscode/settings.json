@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"philo_struct.h": "c",
-		"pthread.h": "c",
-		"philo.h": "c",
-		"philo_proto.h": "c"
-	}
-}
