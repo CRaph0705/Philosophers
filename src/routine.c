@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 18:20:12 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/21 12:44:32 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ int	do_eat(t_philo *philo)
 		return (pthread_mutex_unlock(&philo->data->mtx), do_die(philo));
 	pthread_mutex_unlock(&philo->data->mtx);
 	get_forks(philo);
+	actual = get_time_in_ms() - philo->start_time;
+	if (actual - philo->last_meal > philo->time_to_die)
+		return (put_forks(philo), do_die(philo));
 	pthread_mutex_lock(&philo->data->mtx);
+	actual = get_time_in_ms() - philo->start_time;
 	printf("%ld %d is eating\n", actual, philo->id);
 	pthread_mutex_unlock(&philo->data->mtx);
 	usleep(philo->time_to_eat * 1000);
@@ -68,6 +72,7 @@ int	do_sleep(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->mtx);
 	actual = get_time_in_ms() - philo->start_time;
 	pthread_mutex_lock(&philo->data->mtx);
+	actual = get_time_in_ms() - philo->start_time;
 	printf("%lld %d is sleeping\n", actual, philo->id);
 	pthread_mutex_unlock(&philo->data->mtx);
 	wake_up = get_time_in_ms() + philo->time_to_sleep;
@@ -109,6 +114,7 @@ int	do_think(t_philo *philo)
 	if (time_to_think < 0)
 		time_to_think = 0;
 	pthread_mutex_lock(&philo->data->mtx);
+	actual = get_time_in_ms() - philo->start_time;
 	printf("%ld %d is thinking\n", actual, philo->id);
 	pthread_mutex_unlock(&philo->data->mtx);
 	usleep(time_to_think * 1000);
