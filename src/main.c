@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 16:32:01 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:06:30 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,22 @@ int	start_sim(t_data *data)
 	{
 		if (pthread_create(&data->philos[i]->thread, NULL,
 				&routine, (void *)data->philos[i]) != 0)
-			return (perror("Thread error\n"), 1);
+			return (perror("Thread error\n"), i);
 		i++;
 	}
 	return (0);
 }
 
-int	stop_sim(t_data *data)
+int	stop_sim(t_data *data, int stop)
 {
 	int	i;
+	int	max;
 
+	max = data->nb_philo;
+	if (stop != 0)
+		max = stop;
 	i = 0;
-	while (i < data->nb_philo)
+	while (i < max)
 	{
 		if (pthread_join(data->philos[i]->thread, NULL) != 0)
 			return (perror("Thread join error\n"), 1);
@@ -82,13 +86,15 @@ int	stop_sim(t_data *data)
 int	main(int ac, char **av)
 {
 	t_data			*data;
+	int	stop;
 
+	stop = 0;
 	if (invalid_args(ac, av))
 		return (1);
 	data = init_data(ac, av);
 	if (!data)
 		return (42);
-	start_sim(data);
-	stop_sim(data);
+	stop = start_sim(data);
+	stop_sim(data, stop);
 	return (0);
 }
