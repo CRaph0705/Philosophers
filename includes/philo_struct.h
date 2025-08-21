@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 15:41:19 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:30:55 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ typedef pthread_mutex_t	t_mutex;
 */
 typedef struct s_philo
 {
-	int				id;
+	struct s_data	*data;
+	time_t			start_time;
 	pthread_t		thread;
-	bool			is_dead;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
 	unsigned int	m_right;
 	unsigned int	m_left;
 	long			last_meal;
-	struct s_data	*data;
+	int				id;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
 	int				nb_meal;
-	time_t			start_time;
+	bool			is_dead;
 }	t_philo;
 
 /** 
@@ -61,17 +61,17 @@ typedef	struct s_data
 */
 typedef struct s_data
 {
+	t_philo	**philos;
+	t_mutex	*forks;
+	t_mutex	mtx;
+	time_t	start_time;
 	int		nb_philo;
 	int		time_to_die;
 	int		time_to_eat;
 	int		time_to_sleep;
-	t_philo	**philos;
-	t_mutex	*forks;
 	int		max_meal;
 	int		nb_meals;
-	t_mutex	mtx;
 	int		has_stopped;
-	time_t	start_time;
 }	t_data;
 
 #endif
