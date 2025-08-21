@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 17:31:08 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:24:39 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,40 +48,43 @@ int	do_die(t_philo *philo)
 	return (0);
 }
 
+void	get_target_fork(t_philo *philo, int hand)
+{
+		time_t	actual;
+		if(hand == 0)
+			pthread_mutex_lock(&philo->data->forks[philo->m_left]);
+		else
+			pthread_mutex_lock(&philo->data->forks[philo->m_right]);
+		pthread_mutex_lock(&philo->data->mtx);
+		actual = get_time_in_ms() - philo->start_time;
+		printf("%ld %d has taken a fork\n", actual, philo->id);
+		pthread_mutex_unlock(&philo->data->mtx);
+}
+
 void	get_forks(t_philo *philo)
 {
-	time_t	actual;
-
 	pthread_mutex_lock(&philo->data->mtx);
 	if (philo->data->has_stopped == 1)
 	{
 		pthread_mutex_unlock(&philo->data->mtx);
 		return ;
 	}
-	actual = get_time_in_ms() - philo->start_time;
+	pthread_mutex_unlock(&philo->data->mtx);
 	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->data->forks[philo->m_right]);
-		printf("%ld %d has taken a fork\n", actual, philo->id);
-		pthread_mutex_lock(&philo->data->forks[philo->m_left]);
-		printf("%ld %d has taken a fork\n", actual, philo->id);
+		get_target_fork(philo, 1);
+		get_target_fork(philo, 0);
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->data->forks[philo->m_left]);
-		printf("%ld %d has taken a fork\n", actual, philo->id);
-		pthread_mutex_lock(&philo->data->forks[philo->m_right]);
-		printf("%ld %d has taken a fork\n", actual, philo->id);
+		get_target_fork(philo, 0);
+		get_target_fork(philo, 1);
 	}
-	pthread_mutex_unlock(&philo->data->mtx);
 	return ;
 }
 
 void	put_forks(t_philo *philo)
 {
-	time_t	actual;
-
-	actual = get_time_in_ms() - philo->start_time;
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_unlock(&philo->data->forks[philo->m_right]);
