@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/21 15:06:30 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:15:08 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	stop_sim(t_data *data, int stop)
 int	main(int ac, char **av)
 {
 	t_data			*data;
-	int	stop;
+	int				stop;
 
 	stop = 0;
 	if (invalid_args(ac, av))

@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/21 14:24:39 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:52:08 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	wait_for_start(t_philo *philo);
 int		do_die(t_philo *philo);
-void	get_forks(t_philo *philo);
+int		get_forks(t_philo *philo);
 void	put_forks(t_philo *philo);
+int		get_target_fork(t_philo *philo, int hand);
 
 void	wait_for_start(t_philo *philo)
 {
@@ -48,39 +49,44 @@ int	do_die(t_philo *philo)
 	return (0);
 }
 
-void	get_target_fork(t_philo *philo, int hand)
+int	get_target_fork(t_philo *philo, int hand)
 {
-		time_t	actual;
-		if(hand == 0)
-			pthread_mutex_lock(&philo->data->forks[philo->m_left]);
-		else
-			pthread_mutex_lock(&philo->data->forks[philo->m_right]);
-		pthread_mutex_lock(&philo->data->mtx);
-		actual = get_time_in_ms() - philo->start_time;
-		printf("%ld %d has taken a fork\n", actual, philo->id);
-		pthread_mutex_unlock(&philo->data->mtx);
+	time_t	actual;
+
+	if (am_i_dead(philo))
+		return (do_die(philo), 1);
+	if (check_if_death(philo))
+		return (1);
+	if (hand == 0)
+		pthread_mutex_lock(&philo->data->forks[philo->m_left]);
+	else
+		pthread_mutex_lock(&philo->data->forks[philo->m_right]);
+	pthread_mutex_lock(&philo->data->mtx);
+	actual = get_time_in_ms() - philo->start_time;
+	printf("%ld %d has taken a fork\n", actual, philo->id);
+	pthread_mutex_unlock(&philo->data->mtx);
+	return (0);
 }
 
-void	get_forks(t_philo *philo)
+int	get_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->mtx);
-	if (philo->data->has_stopped == 1)
-	{
-		pthread_mutex_unlock(&philo->data->mtx);
-		return ;
-	}
-	pthread_mutex_unlock(&philo->data->mtx);
+	if (am_i_dead(philo))
+		return (do_die(philo), 1);
 	if (philo->id % 2 == 0)
 	{
-		get_target_fork(philo, 1);
-		get_target_fork(philo, 0);
+		if (get_target_fork(philo, 1))
+			return (put_forks(philo), 1);
+		if (get_target_fork(philo, 0))
+			return (put_forks(philo), 1);
 	}
 	else
 	{
-		get_target_fork(philo, 0);
-		get_target_fork(philo, 1);
+		if (get_target_fork(philo, 0))
+			return (put_forks(philo), 1);
+		if (get_target_fork(philo, 1))
+			return (put_forks(philo), 1);
 	}
-	return ;
+	return (0);
 }
 
 void	put_forks(t_philo *philo)
