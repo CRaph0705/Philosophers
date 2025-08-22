@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/21 18:04:15 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/22 11:08:05 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,6 @@ int	do_eat(t_philo *philo)
 	put_forks(philo);
 	meal_check(philo);
 	return (do_sleep(philo));
-}
-
-void	philo_sleep(time_t sleep_time)
-{
-	time_t	wake_up;
-
-	wake_up = get_time_in_ms() + sleep_time;
-	while (get_time_in_ms() < wake_up)
-	{
-		usleep(100);
-	}
 }
 
 int	do_sleep(t_philo *philo)
@@ -132,10 +121,12 @@ void	*routine(void *p_philo)
 	pthread_mutex_lock(&philo->data->mtx);
 	do_stop = philo->data->has_stopped;
 	pthread_mutex_unlock(&philo->data->mtx);
+	if (do_stop == 1)
+		return (NULL);
 	while ((do_stop == 0
 			&& ((philo->data->max_meal < 0)
 				|| philo->nb_meal < philo->data->max_meal)))
-	{	
+	{
 		do_eat(philo);
 		i++;
 		pthread_mutex_lock(&philo->data->mtx);
