@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/25 12:56:11 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/25 16:54:02 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	do_sleep(t_philo *philo)
 	long long	actual;
 	long long	wake_up;
 
+	if (am_i_dead(philo))
+		return (do_die(philo), 1);
 	if (check_if_death(philo))
 		return (1);
 	actual = get_time_in_ms() - philo->start_time;
@@ -86,8 +88,9 @@ int	do_sleep(t_philo *philo)
 
 int	do_think(t_philo *philo)
 {
-	long	actual;
-	long	time_to_think;
+	long		actual;
+	long		time_to_think;
+	long long	wake_up;
 
 	pthread_mutex_lock(&philo->data->mtx);
 	if (philo->is_dead == true || philo->data->has_stopped)
@@ -99,25 +102,37 @@ int	do_think(t_philo *philo)
 	actual = get_time_in_ms() - philo->start_time;
 	time_to_think = (philo->time_to_die
 			- (actual - philo->last_meal) - philo->time_to_eat) / 2;
+
+	// printf("time to think = [%ld]\n", time_to_think);
 	if (time_to_think < 0)
 		time_to_think = 0;
 	pthread_mutex_lock(&philo->data->mtx);
 	actual = get_time_in_ms() - philo->start_time;
 	printf("%ld %d is thinking\n", actual, philo->id);
 	pthread_mutex_unlock(&philo->data->mtx);
-	usleep(time_to_think * 1000);
+	// usleep(time_to_think * 1000);
+	wake_up = get_time_in_ms() + time_to_think;
+	while (get_time_in_ms() < wake_up)
+	{
+		pthread_mutex_lock(&philo->data->mtx);
+		if (philo->is_dead || philo->data->has_stopped)
+		{
+			pthread_mutex_unlock(&philo->data->mtx);
+			return (1);
+		}
+		pthread_mutex_unlock(&philo->data->mtx);
+		usleep(100);
+	}
 	return (0);
 }
 
 void	*routine(void *p_philo)
 {
 	t_philo	*philo;
-	int		i;
 	int		do_stop;
 
 	philo = (void *)(p_philo);
 	wait_for_start(philo);
-	i = 0;
 	pthread_mutex_lock(&philo->data->mtx);
 	do_stop = philo->data->has_stopped;
 	pthread_mutex_unlock(&philo->data->mtx);
@@ -128,7 +143,6 @@ void	*routine(void *p_philo)
 				|| philo->nb_meal < philo->data->max_meal)))
 	{
 		do_eat(philo);
-		i++;
 		pthread_mutex_lock(&philo->data->mtx);
 		do_stop = philo->data->has_stopped;
 		pthread_mutex_unlock(&philo->data->mtx);

@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/21 17:52:08 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/25 16:23:01 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	get_target_fork(t_philo *philo, int hand)
 	else
 		pthread_mutex_lock(&philo->data->forks[philo->m_right]);
 	pthread_mutex_lock(&philo->data->mtx);
+	if (am_i_dead(philo))
+		return (pthread_mutex_unlock(&philo->data->mtx), do_die(philo), 1);
 	actual = get_time_in_ms() - philo->start_time;
 	printf("%ld %d has taken a fork\n", actual, philo->id);
 	pthread_mutex_unlock(&philo->data->mtx);
@@ -70,6 +72,8 @@ int	get_target_fork(t_philo *philo, int hand)
 
 int	get_forks(t_philo *philo)
 {
+	long long	wake_up;
+
 	if (am_i_dead(philo))
 		return (do_die(philo), 1);
 	if (philo->id % 2 == 0)
@@ -81,6 +85,19 @@ int	get_forks(t_philo *philo)
 	}
 	else
 	{
+		wake_up = get_time_in_ms() + philo->time_to_eat - 1;
+		// usleep((philo->time_to_eat - 1) * 1000);
+		while (get_time_in_ms() < wake_up)
+		{
+			pthread_mutex_lock(&philo->data->mtx);
+			if (philo->is_dead || philo->data->has_stopped)
+			{
+				pthread_mutex_unlock(&philo->data->mtx);
+				return (1);
+			}
+			pthread_mutex_unlock(&philo->data->mtx);
+			usleep(10);
+		}
 		if (get_target_fork(philo, 0))
 			return (put_forks(philo), 1);
 		if (get_target_fork(philo, 1))

@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/22 18:42:52 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/25 16:05:53 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
  * • To prevent philosophers from duplicating forks,
  * you should protect each fork’s state with a mutex.
 */
+
 int	set_last_meal(t_data *data)
 {
 	int		i;
@@ -38,7 +39,7 @@ int	set_last_meal(t_data *data)
 	data->start_time = time + offset;
 	while (i < data->nb_philo && data->philos[i])
 	{
-		data->philos[i]->last_meal = time + offset;
+		data->philos[i]->last_meal = 0;
 		data->philos[i]->start_time = time + offset;
 		i++;
 	}
@@ -75,16 +76,16 @@ int	stop_sim(t_data *data, int stop)
 	int		i;
 
 	i = 0;
-	if (stop != data->nb_philo)
-	{
-		while (i < stop)
-		{
-			if (pthread_detach(data->philos[i]->thread) != 0)
-				return (ft_putstr_fd("Thread detach error\n", 2), 1);
-			i++;
-		}
-		return (free_data(data), 0);
-	}
+	// if (stop != data->nb_philo)
+	// {
+	// 	while (i < stop)
+	// 	{
+	// 		if (pthread_detach(data->philos[i]->thread) != 0)
+	// 			return (ft_putstr_fd("Thread detach error\n", 2), 1);
+	// 		i++;
+	// 	}
+	// 	return (free_data(data), 0);
+	// }
 	while (i < stop)
 	{
 		if (pthread_join(data->philos[i]->thread, NULL) != 0)

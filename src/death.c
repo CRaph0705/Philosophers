@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 16:16:20 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/21 17:56:28 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/25 16:13:13 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,19 @@ int	am_i_dead(t_philo *philo)
 	if (philo->is_dead == 1)
 		return (1);
 	actual = get_time_in_ms() - philo->start_time;
-	if (actual - philo->last_meal > philo->time_to_die)
+	if (actual - philo->last_meal >= philo->time_to_die)
 		return (1);
 	return (0);
 }
 
 int	check_if_death(t_philo *philo)
 {
-	if (am_i_dead(philo) == 1 || get_data_hasstopped(philo) == 1)
+	if (get_data_hasstopped(philo) == 1)
 		return (1);
+	if (am_i_dead(philo) == 1)
+	{
+		do_die(philo);
+		return (1);
+	}
 	return (0);
 }
