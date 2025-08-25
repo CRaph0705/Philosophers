@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/22 18:39:08 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:54:54 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,8 @@ int		am_i_dead(t_philo *philo);
 
 /* MAIN.C */
 int		set_last_meal(t_data *data);
+
+/* CUSTOM_SLEEP.C */
+int		custom_usleep(t_philo *philo, long duration_ms);
 
 #endif
