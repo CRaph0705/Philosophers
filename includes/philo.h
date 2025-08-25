@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:47 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/18 11:06:28 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/22 18:35:20 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <sys/time.h>
+
 # include "philo_struct.h"
 # include "philo_proto.h"
 

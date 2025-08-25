@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/21 17:27:26 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/22 18:39:08 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ int		is_digit(int c);
 
 /*  */
 int		ft_atoi(const char *str);
+
+/*  */
+void	ft_putstr_fd(char *str, int fd);
 
 /*  */
 int		args_are_numbers(int ac, char **av);
