@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 01:01:59 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 01:17:44 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,47 +27,42 @@ void	meal_check(t_philo *philo)
 		philo->data->has_stopped = 1;
 	pthread_mutex_unlock(&philo->data->mtx);
 }
-
-int	do_eat(t_philo *philo)
+int do_eat(t_philo *philo)
 {
-	time_t	actual;
+	long actual;
 
-	if (check_if_death(philo))
+	if (check_death(philo))
 		return (1);
-	actual = get_time_in_ms() - philo->start_time;
-	if (am_i_dead(philo))
-		return (do_die(philo));
 	if (philo->m_left == philo->m_right)
-		(usleep(philo->time_to_die * 1000), do_die(philo));
+	{
+		custom_usleep(philo, philo->time_to_die);
+		return (do_die(philo));
+	}
 	if (get_forks(philo))
 		return (0);
-	// actual = get_time_in_ms() - philo->start_time;
-	// if (actual - philo->last_meal > philo->time_to_die)
-	// 	return (put_forks(philo), do_die(philo));
 	actual = get_time_in_ms() - philo->start_time;
 	pthread_mutex_lock(&philo->data->mtx);
-	if (philo->data->has_stopped == 0)
+	if (philo->data->has_stopped == 0 && !philo->is_dead)
 		printf("%ld %d is eating\n", actual, philo->id);
 	pthread_mutex_unlock(&philo->data->mtx);
 	philo->last_meal = get_time_in_ms() - philo->start_time;
-if (custom_usleep(philo, philo->time_to_eat))
-{
-	put_forks(philo);
-	return (1);
-}
+	if (custom_usleep(philo, philo->time_to_eat))
+	{
+		put_forks(philo);
+		return (1);
+	}
 	philo->nb_meal += 1;
 	put_forks(philo);
 	meal_check(philo);
 	return (do_sleep(philo));
 }
 
+
 int	do_sleep(t_philo *philo)
 {
 	long long	actual;
 
-	if (am_i_dead(philo))
-		return (do_die(philo), 1);
-	if (check_if_death(philo))
+	if (check_death(philo))
 		return (1);
 	actual = get_time_in_ms() - philo->start_time;
 	pthread_mutex_lock(&philo->data->mtx);
@@ -107,23 +102,17 @@ int do_think(t_philo *philo)
 void	*routine(void *p_philo)
 {
 	t_philo	*philo;
-	int		do_stop;
 
-	philo = (void *)(p_philo);
+	philo = (t_philo *)p_philo;
 	wait_for_start(philo);
-	pthread_mutex_lock(&philo->data->mtx);
-	do_stop = philo->data->has_stopped;
-	pthread_mutex_unlock(&philo->data->mtx);
-	if (do_stop != 0)
-		return (NULL);
-	while ((do_stop == 0
-			&& ((philo->data->max_meal < 0)
-				|| philo->nb_meal < philo->data->max_meal)))
+	while (1)
 	{
-		do_eat(philo);
-		pthread_mutex_lock(&philo->data->mtx);
-		do_stop = philo->data->has_stopped;
-		pthread_mutex_unlock(&philo->data->mtx);
+		if (check_death(philo))
+			break;
+		if (philo->data->max_meal >= 0 && philo->nb_meal >= philo->data->max_meal)
+			break;
+		if (do_eat(philo))
+			break;
 	}
 	return (NULL);
 }

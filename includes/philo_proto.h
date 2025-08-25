@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 00:54:54 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 01:12:14 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,7 @@ int		args_are_numbers(int ac, char **av);
 time_t	get_time_in_ms(void);
 
 /* DEATH.C */
-int		get_data_hasstopped(t_philo *philo);
-int		check_if_death(t_philo *philo);
-int		am_i_dead(t_philo *philo);
+int		check_death(t_philo *philo);
 
 /* MAIN.C */
 int		set_last_meal(t_data *data);

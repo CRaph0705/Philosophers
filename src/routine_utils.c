@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/25 16:23:01 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 01:18:25 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,14 @@ int	get_target_fork(t_philo *philo, int hand)
 {
 	time_t	actual;
 
-	if (am_i_dead(philo))
-		return (do_die(philo), 1);
-	if (check_if_death(philo))
+	if (check_death(philo))
 		return (1);
 	if (hand == 0)
 		pthread_mutex_lock(&philo->data->forks[philo->m_left]);
 	else
 		pthread_mutex_lock(&philo->data->forks[philo->m_right]);
 	pthread_mutex_lock(&philo->data->mtx);
-	if (am_i_dead(philo))
+	if (check_death(philo))
 		return (pthread_mutex_unlock(&philo->data->mtx), do_die(philo), 1);
 	actual = get_time_in_ms() - philo->start_time;
 	printf("%ld %d has taken a fork\n", actual, philo->id);
@@ -74,8 +72,8 @@ int	get_forks(t_philo *philo)
 {
 	long long	wake_up;
 
-	if (am_i_dead(philo))
-		return (do_die(philo), 1);
+	if (check_death(philo))
+		return (1);
 	if (philo->id % 2 == 0)
 	{
 		if (get_target_fork(philo, 1))
