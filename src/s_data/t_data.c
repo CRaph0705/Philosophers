@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/22 18:44:36 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/25 11:25:46 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,6 @@ t_data	*init_data(int ac, char **av)
 
 void	free_data(t_data *data)
 {
-	int	i;
-
-	ft_putstr_fd("free data", 2);
-	i = 0;
 	if (data)
 	{
 		if (data->forks)
