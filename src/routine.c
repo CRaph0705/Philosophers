@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/22 11:08:05 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/25 12:56:11 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	do_eat(t_philo *philo)
 	actual = get_time_in_ms() - philo->start_time;
 	if (am_i_dead(philo))
 		return (do_die(philo));
+	if (philo->m_left == philo->m_right)
+		(usleep(philo->time_to_die * 1000), do_die(philo));
 	if (get_forks(philo))
 		return (0);
 	actual = get_time_in_ms() - philo->start_time;
@@ -111,17 +113,15 @@ void	*routine(void *p_philo)
 {
 	t_philo	*philo;
 	int		i;
-	time_t	actual;
 	int		do_stop;
 
 	philo = (void *)(p_philo);
-	actual = get_time_in_ms() - philo->start_time;
 	wait_for_start(philo);
 	i = 0;
 	pthread_mutex_lock(&philo->data->mtx);
 	do_stop = philo->data->has_stopped;
 	pthread_mutex_unlock(&philo->data->mtx);
-	if (do_stop == 1)
+	if (do_stop != 0)
 		return (NULL);
 	while ((do_stop == 0
 			&& ((philo->data->max_meal < 0)
