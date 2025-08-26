@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 14:32:06 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:10:10 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,17 @@ int	stop_sim(t_data *data, int stop)
 	int		i;
 
 	i = 0;
-	// pthread_mutex_lock(&data->mtx);
 	while (i < stop)
 	{
 		if (pthread_join(data->philos[i]->thread, NULL) != 0)
-			return (ft_putstr_fd("Thread join error\n", 2), 1);
+		{
+			pthread_mutex_lock(&data->m_print);
+			ft_putstr_fd("Thread join error\n", 2);
+			pthread_mutex_unlock(&data->m_print);
+			return (1);
+		}
 		i++;
 	}
-	// pthread_mutex_unlock(&data->mtx);
 	return (free_data(data), 0);
 }
 

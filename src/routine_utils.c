@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 14:57:28 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 16:40:00 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	wait_for_start(t_philo *philo)
 {
 	time_t	actual;
 
-	actual = get_time_in_ms() - philo->start_time;
+	// actual = get_time_in_ms() - philo->start_time;
 	while (1)
 	{
 		actual = get_time_in_ms() - philo->start_time;
@@ -32,7 +32,7 @@ void	wait_for_start(t_philo *philo)
 				break ;
 			else
 			{
-				usleep(1000);
+				// custom_usleep(philo, philo->time_to_eat - 10);
 				break ;
 			}
 		}
@@ -56,7 +56,7 @@ int	do_die(t_philo *philo)
 	philo->is_dead = 1;
 	philo->data->has_stopped = 1;
 	pthread_mutex_unlock(&philo->data->m_death);
-	return (0);
+	return (42);
 }
 
 int	get_target_fork(t_philo *philo, int hand)
@@ -67,7 +67,7 @@ int	get_target_fork(t_philo *philo, int hand)
 		pthread_mutex_lock(&philo->data->forks[philo->m_left]);
 	else
 		pthread_mutex_lock(&philo->data->forks[philo->m_right]);
-	pthread_mutex_lock(&philo->data->mtx);
+	pthread_mutex_lock(&philo->data->m_death);
 	if (!philo->is_dead && !philo->data->has_stopped)
 	{
 		pthread_mutex_lock(&philo->data->m_print);
@@ -75,13 +75,20 @@ int	get_target_fork(t_philo *philo, int hand)
 			get_time_in_ms() - philo->start_time, philo->id);
 		pthread_mutex_unlock(&philo->data->m_print);
 	}
-	pthread_mutex_unlock(&philo->data->mtx);
+	pthread_mutex_unlock(&philo->data->m_death);
 	return (0);
 }
 
 int	get_forks(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
+	if (philo->m_left == philo->m_right)
+	{
+		get_target_fork(philo, 0);
+		put_forks(philo);
+		custom_usleep(philo, philo->time_to_die);
+		return (do_die(philo), check_death(philo), 1);
+	}
+	if (philo->id % 2 == 1)
 	{
 		get_target_fork(philo, 1);
 		if (check_death(philo))

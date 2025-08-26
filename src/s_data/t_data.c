@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 14:28:04 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 16:39:47 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,23 @@ int	invalid_args(int ac, char **av)
 
 int	init_mtx(t_data *data)
 {
-	pthread_mutex_t	mutex;
 	pthread_mutex_t	death;
+	pthread_mutex_t	meals;
 	pthread_mutex_t	print;
+	pthread_mutex_t	time;
 
-	if (pthread_mutex_init(&mutex, NULL) != 0)
-		return (ft_putstr_fd("Error : mutex error", 2), 1);
-	data->mtx = mutex;
 	if (pthread_mutex_init(&death, NULL) != 0)
 		return (ft_putstr_fd("Error : mutex error", 2), 1);
 	data->m_death = death;
+	if (pthread_mutex_init(&meals, NULL) != 0)
+		return (ft_putstr_fd("Error : mutex error", 2), 1);
+	data->m_meals = meals;
 	if (pthread_mutex_init(&print, NULL) != 0)
 		return (ft_putstr_fd("Error : mutex error", 2), 1);
 	data->m_print = print;
+	if (pthread_mutex_init(&time, NULL) != 0)
+		return (ft_putstr_fd("Error : mutex error", 2), 1);
+	data->m_time = time;
 	return (0);
 }
 
@@ -91,12 +95,14 @@ t_data	*init_data(int ac, char **av)
 
 void	destroy_mutexes(t_data *data)
 {
-	pthread_mutex_unlock(&data->mtx);
-	pthread_mutex_destroy(&data->mtx);
 	pthread_mutex_unlock(&data->m_death);
 	pthread_mutex_destroy(&data->m_death);
+	pthread_mutex_unlock(&data->m_meals);
+	pthread_mutex_destroy(&data->m_meals);
 	pthread_mutex_unlock(&data->m_print);
 	pthread_mutex_destroy(&data->m_print);
+	pthread_mutex_unlock(&data->m_time);
+	pthread_mutex_destroy(&data->m_time);
 }
 
 void	free_data(t_data *data)
