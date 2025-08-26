@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 01:45:39 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 14:57:28 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,15 @@ void	wait_for_start(t_philo *philo)
 	{
 		actual = get_time_in_ms() - philo->start_time;
 		if (actual == 0)
-			break ;
+		{
+			if ((philo->id) % 2 == 0)
+				break ;
+			else
+			{
+				usleep(1000);
+				break ;
+			}
+		}
 	}
 }
 
@@ -36,16 +44,18 @@ int	do_die(t_philo *philo)
 	time_t	actual;
 
 	actual = get_time_in_ms() - philo->start_time;
-	pthread_mutex_lock(&philo->data->mtx);
+	pthread_mutex_lock(&philo->data->m_death);
 	if (philo->data->has_stopped == 1)
 	{
-		pthread_mutex_unlock(&philo->data->mtx);
+		pthread_mutex_unlock(&philo->data->m_death);
 		return (0);
 	}
+	pthread_mutex_lock(&philo->data->m_print);
 	printf("%ld %d died\n", actual, philo->id);
+	pthread_mutex_unlock(&philo->data->m_print);
 	philo->is_dead = 1;
 	philo->data->has_stopped = 1;
-	pthread_mutex_unlock(&philo->data->mtx);
+	pthread_mutex_unlock(&philo->data->m_death);
 	return (0);
 }
 
@@ -59,8 +69,12 @@ int	get_target_fork(t_philo *philo, int hand)
 		pthread_mutex_lock(&philo->data->forks[philo->m_right]);
 	pthread_mutex_lock(&philo->data->mtx);
 	if (!philo->is_dead && !philo->data->has_stopped)
+	{
+		pthread_mutex_lock(&philo->data->m_print);
 		printf("%ld %d has taken a fork\n",
 			get_time_in_ms() - philo->start_time, philo->id);
+		pthread_mutex_unlock(&philo->data->m_print);
+	}
 	pthread_mutex_unlock(&philo->data->mtx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/21 18:30:55 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 14:07:57 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct s_data
 {
 	t_philo	**philos;
 	t_mutex	*forks;
+	t_mutex	m_print;
+	t_mutex	m_death;
 	t_mutex	mtx;
 	time_t	start_time;
 	int		nb_philo;

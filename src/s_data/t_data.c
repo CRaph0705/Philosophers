@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/25 11:25:46 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 14:28:04 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	invalid_args(int ac, char **av)
 		meal_number = ft_atoi(av[5]);
 	else
 		meal_number = 1;
-	if (nb_philo < 1)
+	if (nb_philo < 1 || nb_philo > 200)
 		return (ft_putstr_fd("Error: wrong philo number given\n", 2), 2);
 	if (time_to_die < 0 || time_to_eat < 0 || time_to_sleep < 0)
 		return (ft_putstr_fd("Error: wrong time number given\n", 2), 3);
@@ -44,10 +44,27 @@ int	invalid_args(int ac, char **av)
 	return (0);
 }
 
+int	init_mtx(t_data *data)
+{
+	pthread_mutex_t	mutex;
+	pthread_mutex_t	death;
+	pthread_mutex_t	print;
+
+	if (pthread_mutex_init(&mutex, NULL) != 0)
+		return (ft_putstr_fd("Error : mutex error", 2), 1);
+	data->mtx = mutex;
+	if (pthread_mutex_init(&death, NULL) != 0)
+		return (ft_putstr_fd("Error : mutex error", 2), 1);
+	data->m_death = death;
+	if (pthread_mutex_init(&print, NULL) != 0)
+		return (ft_putstr_fd("Error : mutex error", 2), 1);
+	data->m_print = print;
+	return (0);
+}
+
 t_data	*init_data(int ac, char **av)
 {
 	t_data			*data;
-	pthread_mutex_t	mutex;
 
 	data = malloc(sizeof(t_data));
 	if (!data)
@@ -63,14 +80,23 @@ t_data	*init_data(int ac, char **av)
 	data->philos = NULL;
 	data->forks = NULL;
 	data->has_stopped = 0;
-	if (pthread_mutex_init(&mutex, NULL) != 0)
-		return (ft_putstr_fd("Error : mutex error", 2), free_data(data), NULL);
-	data->mtx = mutex;
+	if (init_mtx(data))
+		return (free_data(data), NULL);
 	if (init_forks(data))
 		return (free_data(data), NULL);
 	if (init_philo(data))
 		return (free_data(data), NULL);
 	return (data);
+}
+
+void	destroy_mutexes(t_data *data)
+{
+	pthread_mutex_unlock(&data->mtx);
+	pthread_mutex_destroy(&data->mtx);
+	pthread_mutex_unlock(&data->m_death);
+	pthread_mutex_destroy(&data->m_death);
+	pthread_mutex_unlock(&data->m_print);
+	pthread_mutex_destroy(&data->m_print);
 }
 
 void	free_data(t_data *data)
@@ -81,7 +107,7 @@ void	free_data(t_data *data)
 			free_forks(data);
 		if (data->philos)
 			free_philos(data);
-		pthread_mutex_destroy(&data->mtx);
+		destroy_mutexes(data);
 		free(data);
 	}
 }

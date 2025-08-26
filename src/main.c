@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 01:40:23 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 14:32:06 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,10 @@ int	start_sim(t_data *data)
 		if (pthread_create(&data->philos[i]->thread, NULL,
 				&routine, (void *)data->philos[i]) != 0)
 		{
-			pthread_mutex_lock(&data->mtx);
+			pthread_mutex_lock(&data->m_death);
 			data->has_stopped = 1;
-			pthread_mutex_unlock(&data->mtx);
-			return (printf("i = %d\n", i),
-				ft_putstr_fd("Thread error\n", 2), i);
+			pthread_mutex_unlock(&data->m_death);
+			return (ft_putstr_fd("Thread error\n", 2), i);
 		}
 		i++;
 	}
@@ -77,12 +76,14 @@ int	stop_sim(t_data *data, int stop)
 	int		i;
 
 	i = 0;
+	// pthread_mutex_lock(&data->mtx);
 	while (i < stop)
 	{
 		if (pthread_join(data->philos[i]->thread, NULL) != 0)
 			return (ft_putstr_fd("Thread join error\n", 2), 1);
 		i++;
 	}
+	// pthread_mutex_unlock(&data->mtx);
 	return (free_data(data), 0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 00:52:59 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 01:39:31 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 13:46:17 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	custom_usleep(t_philo *philo, long duration_ms)
 	{
 		if (check_death(philo))
 			return (1);
+		// printf("timestamp = %ld, id = %d\n", start, philo->id);
 		usleep(100);
 	}
 	return (0);
