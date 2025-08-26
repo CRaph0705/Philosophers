@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 17:10:10 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 00:00:21 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ int	set_last_meal(t_data *data)
 {
 	int		i;
 	time_t	time;
-	time_t	offset;
 
 	i = 0;
 	if (!data->nb_philo)
 		return (1);
-	offset = data->nb_philo * 20;
 	if (!data || !data->philos)
 		return (1);
 	time = get_time_in_ms();
-	data->start_time = time + offset;
+	data->start_time = time;
 	while (i < data->nb_philo && data->philos[i])
 	{
-		data->philos[i]->last_meal = time + offset;
-		data->philos[i]->start_time = time + offset;
+		pthread_mutex_lock(&data->m_time);
+		data->philos[i]->last_meal = time;
+		data->philos[i]->start_time = time;
+		pthread_mutex_unlock(&data->m_time);
 		i++;
 	}
 	return (0);
@@ -68,6 +68,13 @@ int	start_sim(t_data *data)
 		}
 		i++;
 	}
+	if (pthread_create(&data->monitor, NULL, &monitor, data) != 0)
+	{
+		pthread_mutex_lock(&data->m_death);
+		data->has_stopped = 1;
+		pthread_mutex_unlock(&data->m_death);
+		return (ft_putstr_fd("Monitor thread error\n", 2), i);
+	}
 	return (i);
 }
 
@@ -76,6 +83,7 @@ int	stop_sim(t_data *data, int stop)
 	int		i;
 
 	i = 0;
+	pthread_join(data->monitor, NULL);
 	while (i < stop)
 	{
 		if (pthread_join(data->philos[i]->thread, NULL) != 0)

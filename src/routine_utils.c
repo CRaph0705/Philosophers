@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 16:40:00 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 00:04:48 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,19 @@ int		get_target_fork(t_philo *philo, int hand);
 
 void	wait_for_start(t_philo *philo)
 {
-	time_t	actual;
+	bool	ready;
 
-	// actual = get_time_in_ms() - philo->start_time;
+	pthread_mutex_lock(&philo->data->m_ready);
+	philo->data->ready_count++;
+	pthread_mutex_unlock(&philo->data->m_ready);
 	while (1)
 	{
-		actual = get_time_in_ms() - philo->start_time;
-		if (actual == 0)
-		{
-			if ((philo->id) % 2 == 0)
-				break ;
-			else
-			{
-				// custom_usleep(philo, philo->time_to_eat - 10);
-				break ;
-			}
-		}
+		pthread_mutex_lock(&philo->data->m_ready);
+		ready = (philo->data->ready_count == philo->data->nb_philo);
+		pthread_mutex_unlock(&philo->data->m_ready);
+		if (ready)
+			break ;
+		usleep(100);
 	}
 }
 

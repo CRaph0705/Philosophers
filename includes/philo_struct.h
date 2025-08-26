@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 17:13:56 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/26 23:51:06 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_data
 	t_mutex		m_print;
 	t_mutex		m_death;
 	t_mutex		m_time;
+	t_mutex		m_ready;
 	t_mutex		m_meals;
 	time_t		start_time;
 	int			nb_philo;
@@ -75,6 +76,7 @@ typedef struct s_data
 	int			time_to_sleep;
 	int			max_meal;
 	int			nb_meals;
+	int			ready_count;
 	bool		has_stopped;
 }	t_data;
 
