@@ -1,15 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lock_printf.c                                      :+:      :+:    :+:   */
+/*   custom_sleep.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 17:39:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/21 17:41:06 by rcochran         ###   ########.fr       */
+/*   Created: 2025/08/26 00:52:59 by rcochran          #+#    #+#             */
+/*   Updated: 2025/08/26 01:39:31 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// int	lock_printf();
+int	custom_usleep(t_philo *philo, long duration_ms)
+{
+	long	start;
+
+	start = get_time_in_ms();
+	while (get_time_in_ms() - start < duration_ms)
+	{
+		if (check_death(philo))
+			return (1);
+		usleep(100);
+	}
+	return (0);
+}

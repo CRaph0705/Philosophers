@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/22 10:52:30 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/25 11:25:46 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	invalid_args(int ac, char **av)
 	else
 		meal_number = 1;
 	if (nb_philo < 1)
-		return (perror("Error: wrong philo number given\n"), 2);
+		return (ft_putstr_fd("Error: wrong philo number given\n", 2), 2);
 	if (time_to_die < 0 || time_to_eat < 0 || time_to_sleep < 0)
-		return (perror("Error: wrong time number given\n"), 3);
+		return (ft_putstr_fd("Error: wrong time number given\n", 2), 3);
 	if (meal_number < 0)
-		return (perror("Error: wrong meal number given\n"), 4);
+		return (ft_putstr_fd("Error: wrong meal number given\n", 2), 4);
 	return (0);
 }
 
@@ -51,7 +51,7 @@ t_data	*init_data(int ac, char **av)
 
 	data = malloc(sizeof(t_data));
 	if (!data)
-		return (perror("Error: malloc failed\n"), NULL);
+		return (ft_putstr_fd("Error: malloc failed\n", 2), NULL);
 	data->nb_philo = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
@@ -64,7 +64,7 @@ t_data	*init_data(int ac, char **av)
 	data->forks = NULL;
 	data->has_stopped = 0;
 	if (pthread_mutex_init(&mutex, NULL) != 0)
-		return (perror("Error : mutex error"), free_data(data), NULL);
+		return (ft_putstr_fd("Error : mutex error", 2), free_data(data), NULL);
 	data->mtx = mutex;
 	if (init_forks(data))
 		return (free_data(data), NULL);
@@ -75,9 +75,6 @@ t_data	*init_data(int ac, char **av)
 
 void	free_data(t_data *data)
 {
-	int	i;
-
-	i = 0;
 	if (data)
 	{
 		if (data->forks)

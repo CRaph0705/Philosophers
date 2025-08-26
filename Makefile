@@ -6,7 +6,7 @@
 #    By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:55:20 by rcochran          #+#    #+#              #
-#    Updated: 2025/08/21 16:31:53 by rcochran         ###   ########.fr        #
+#    Updated: 2025/08/26 00:53:39 by rcochran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,10 @@ FILES		= 	s_data/t_data \
 				s_philo/t_philo \
 				utils/args_are_numbers \
 				utils/ft_atoi \
+				utils/ft_putstr_fd \
 				utils/is_digit \
 				utils/is_numeric \
+				custom_sleep \
 				death \
 				routine_utils \
 				routine \

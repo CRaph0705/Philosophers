@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:49:42 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/20 18:22:33 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/25 16:33:40 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_philo	*new_philo(int index, t_data *data)
 			return (NULL);
 		new->id = index + 1;
 		new->is_dead = 0;
+		new->nb_meal = 0;
 		new->time_to_die = data->time_to_die;
 		new->time_to_eat = data->time_to_eat;
 		new->time_to_sleep = data->time_to_sleep;
