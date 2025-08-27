@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 16:39:19 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 18:05:59 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ t_data	*init_data(int ac, char **av)
 	data->forks = NULL;
 	data->simulation_stop = 0;
 	data->ready_count = 0;
+	data->nb_meals = 0;
 	if (init_mtx(data))
 		return (free_data(data), NULL);
 	if (init_forks(data))
