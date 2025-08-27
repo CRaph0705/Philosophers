@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 23:51:06 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 15:13:25 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef pthread_mutex_t	t_mutex;
 typedef struct s_philo
 {
 	struct s_data	*data;
+	t_mutex			m_status;
 	time_t			start_time;
 	pthread_t		thread;
 	unsigned int	m_right;
@@ -56,7 +57,7 @@ typedef	struct s_data
 	t_philo	*philos;
 	t_mutex	**forks;
 	int nb_meal;
-	int	has_stopped;
+	int	simulation_stop;
 }	t_data;
 */
 typedef struct s_data
@@ -64,11 +65,11 @@ typedef struct s_data
 	pthread_t	monitor;
 	t_philo		**philos;
 	t_mutex		*forks;
-	t_mutex		m_print;
 	t_mutex		m_death;
-	t_mutex		m_time;
-	t_mutex		m_ready;
 	t_mutex		m_meals;
+	t_mutex		m_print;
+	t_mutex		m_ready;
+	t_mutex		m_stop;
 	time_t		start_time;
 	int			nb_philo;
 	int			time_to_die;
@@ -77,7 +78,7 @@ typedef struct s_data
 	int			max_meal;
 	int			nb_meals;
 	int			ready_count;
-	bool		has_stopped;
+	bool		simulation_stop;
 }	t_data;
 
 #endif

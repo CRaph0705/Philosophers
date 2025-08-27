@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 23:56:43 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:39:19 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	init_mtx(t_data *data)
 	pthread_mutex_t	death;
 	pthread_mutex_t	meals;
 	pthread_mutex_t	print;
-	pthread_mutex_t	time;
 	pthread_mutex_t	ready;
+	pthread_mutex_t	stop;
 
 	if (pthread_mutex_init(&death, NULL) != 0)
 		return (ft_putstr_fd("Error : mutex error", 2), 1);
@@ -61,12 +61,12 @@ int	init_mtx(t_data *data)
 	if (pthread_mutex_init(&print, NULL) != 0)
 		return (ft_putstr_fd("Error : mutex error", 2), 1);
 	data->m_print = print;
-	if (pthread_mutex_init(&time, NULL) != 0)
-		return (ft_putstr_fd("Error : mutex error", 2), 1);
-	data->m_time = time;
 	if (pthread_mutex_init(&ready, NULL) != 0)
 		return (ft_putstr_fd("Error : mutex error", 2), 1);
 	data->m_ready = ready;
+	if (pthread_mutex_init(&stop, NULL) != 0)
+		return (ft_putstr_fd("Error : mutex error", 2), 1);
+	data->m_stop = stop;
 	return (0);
 }
 
@@ -88,7 +88,8 @@ t_data	*init_data(int ac, char **av)
 		data->max_meal = -1;
 	data->philos = NULL;
 	data->forks = NULL;
-	data->has_stopped = 0;
+	data->simulation_stop = 0;
+	data->ready_count = 0;
 	if (init_mtx(data))
 		return (free_data(data), NULL);
 	if (init_forks(data))
@@ -100,20 +101,16 @@ t_data	*init_data(int ac, char **av)
 
 void	destroy_mutexes(t_data *data)
 {
-	pthread_mutex_unlock(&data->m_death);
+	// pthread_mutex_unlock(&data->m_death);
 	pthread_mutex_destroy(&data->m_death);
-	
-	pthread_mutex_unlock(&data->m_meals);
+	// pthread_mutex_unlock(&data->m_meals);
 	pthread_mutex_destroy(&data->m_meals);
-	
-	pthread_mutex_unlock(&data->m_print);
+	// pthread_mutex_unlock(&data->m_print);
 	pthread_mutex_destroy(&data->m_print);
-	
-	pthread_mutex_unlock(&data->m_time);
-	pthread_mutex_destroy(&data->m_time);
-	
-	pthread_mutex_unlock(&data->m_ready);
+	// pthread_mutex_unlock(&data->m_ready);
 	pthread_mutex_destroy(&data->m_ready);
+	// pthread_mutex_unlock(&data->m_stop);
+	pthread_mutex_destroy(&data->m_stop);
 }
 
 void	free_data(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:49:42 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/25 16:33:40 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 15:15:55 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		free_philos(t_data *data);
 t_philo	*new_philo(int index, t_data *data)
 {
 	t_philo	*new;
+	t_mutex	status;
 
 	new = NULL;
 	if (data)
@@ -36,6 +37,9 @@ t_philo	*new_philo(int index, t_data *data)
 		new->data = data;
 		new->m_left = index;
 		new->m_right = (index + 1) % data->nb_philo;
+		if (pthread_mutex_init(&status, NULL) != 0)
+			return (ft_putstr_fd("Error : mutex error\n", 2), free(new), NULL);
+		new->m_status = status;
 	}
 	return (new);
 }

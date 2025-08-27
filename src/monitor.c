@@ -6,14 +6,14 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 23:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 00:11:17 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:37:10 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 void	*monitor(void *arg);
 
-static int all_meals_done(t_data *data)
+/* static int all_meals_done(t_data *data)
 {
 	int done;
 	
@@ -23,16 +23,32 @@ static int all_meals_done(t_data *data)
 		done = 1;
 	pthread_mutex_unlock(&data->m_meals);
 	return (done);
-}
+} */
 
 void	*monitor(void *arg)//TODO à redécouper
 {
-	t_data *data = (t_data *)arg;
+	t_data	*data;
+	int		i;
 
-	while (1)
+	data = (t_data *)arg;
+	while (!data->simulation_stop)
 	{
-		pthread_mutex_lock(&data->m_death);
-		if (data->has_stopped)
+		i = 0;
+		while (i < data->nb_philo)
+		{
+			safe_mutex_lock(&(data->philos[i]->m_status), data);
+			if (is_philo_dead(data, get_time_in_ms(), i))
+				return (NULL);
+			pthread_mutex_unlock(&(data->philos[i]->m_status));
+			i++;
+		}
+	}
+	return (NULL);
+}
+
+
+/* 		pthread_mutex_lock(&data->m_death);
+		if (data->simulation_stop)
 		{
 			pthread_mutex_unlock(&data->m_death);
 			break;
@@ -41,7 +57,7 @@ void	*monitor(void *arg)//TODO à redécouper
 		if (all_meals_done(data))
 		{
 			pthread_mutex_lock(&data->m_death);
-			data->has_stopped = 1;
+			data->simulation_stop = 1;
 			pthread_mutex_unlock(&data->m_death);
 			break;
 		}
@@ -55,9 +71,9 @@ void	*monitor(void *arg)//TODO à redécouper
 			if (now - last >= data->time_to_die)
 			{
 				pthread_mutex_lock(&data->m_death);
-				if (!data->has_stopped)
+				if (!data->simulation_stop)
 				{
-					data->has_stopped = 1;
+					data->simulation_stop = 1;
 					pthread_mutex_lock(&data->m_print);
 					printf("%ld %d died\n",
 							now - data->start_time, data->philos[i]->id);
@@ -67,7 +83,4 @@ void	*monitor(void *arg)//TODO à redécouper
 				return NULL;
 			}
 		}
-		usleep(1000);
-	}
-	return NULL;
-	}
+		usleep(1000); */
