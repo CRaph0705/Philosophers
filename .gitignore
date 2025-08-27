@@ -57,3 +57,5 @@ dkms.conf
 .vscode/settings.json
 
 /tester
+helgrind_philo.log
+*debug.txt
