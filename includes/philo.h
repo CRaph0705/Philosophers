@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:47 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/22 18:35:20 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 12:06:45 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@
 
 # include "philo_struct.h"
 # include "philo_proto.h"
+# include "philo_error.h"
 
 #endif

@@ -6,7 +6,7 @@
 #    By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:55:20 by rcochran          #+#    #+#              #
-#    Updated: 2025/08/26 00:53:39 by rcochran         ###   ########.fr        #
+#    Updated: 2025/08/27 18:18:31 by rcochran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,12 @@ FILES		= 	s_data/t_data \
 				utils/is_numeric \
 				custom_sleep \
 				death \
+				monitor \
 				routine_utils \
 				routine \
-				time
+				time \
+				safe_mutex_lock \
+				nb_meal_reached
 
 SRC_DIR		= 	src/
 SRC_FILES	=	$(addsuffix .c, $(FILES))

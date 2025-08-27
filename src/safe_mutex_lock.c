@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   custom_sleep.c                                     :+:      :+:    :+:   */
+/*   safe_mutex_lock.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 00:52:59 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 16:08:38 by rcochran         ###   ########.fr       */
+/*   Created: 2025/08/27 13:44:58 by rcochran          #+#    #+#             */
+/*   Updated: 2025/08/27 13:47:20 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	custom_usleep(t_philo *philo, long duration_ms)
+int	safe_mutex_lock(pthread_mutex_t *m, t_data *data)
 {
-	long	start;
-	(void)philo;
-	start = get_time_in_ms();
-	while (get_time_in_ms() - start < duration_ms)
-	{
-		// if (check_death(philo))
-		// 	return (1);
-		// printf("timestamp = %ld, id = %d\n", start, philo->id);
-		usleep(100);
-	}
-	return (0);
+	int	simulation_stopped;
+
+	pthread_mutex_lock(&(data->m_stop));
+	simulation_stopped = data->simulation_stop;
+	pthread_mutex_unlock(&(data->m_stop));
+	if (simulation_stopped)
+		return (0);
+	if (pthread_mutex_lock(m) != 0)
+		return (0);
+	return (1);
 }

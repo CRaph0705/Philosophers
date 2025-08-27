@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/26 01:12:14 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 18:18:07 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		do_die(t_philo *philo);
 int		get_forks(t_philo *philo);
 
 /*  */
-void	put_forks(t_philo *philo);
+void	put_forks(t_philo *philo, int nb_forks);
 
 /*  */
 void	wait_for_start(t_philo *philo);
@@ -100,5 +100,12 @@ int		set_last_meal(t_data *data);
 
 /* CUSTOM_SLEEP.C */
 int		custom_usleep(t_philo *philo, long duration_ms);
+
+/* MONITOR.C */
+void	*monitor(void *arg);
+
+int		safe_mutex_lock(pthread_mutex_t *m, t_data *data);
+int		is_philo_dead(t_data *data, long now, int i);
+int		nb_meal_reached(t_data *data);
 
 #endif
