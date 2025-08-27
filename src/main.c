@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 16:13:57 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 19:10:58 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@
  * • To prevent philosophers from duplicating forks,
  * you should protect each fork’s state with a mutex.
 */
+
+static void		clean_wait(t_data *data);
+
+static	void	clean_wait(t_data *data)
+{
+	int	top;
+	int	tt_die;
+	int	tt_sleep;
+
+	pthread_mutex_lock(&data->m_stop);
+	tt_die = data->time_to_die;
+	tt_sleep = data->time_to_sleep;
+	pthread_mutex_unlock(&data->m_stop);
+	top = tt_sleep;
+	if (tt_die > tt_sleep)
+		top = tt_die;
+	usleep(top * 1000);
+}
 
 int	set_last_meal(t_data *data)
 {
@@ -107,6 +125,7 @@ int	stop_sim(t_data *data, int stop)
 	int		i;
 
 	i = 0;
+	clean_wait(data);
 	if (pthread_join(data->monitor, NULL) != 0)
 	{
 		pthread_mutex_lock(&data->m_print);

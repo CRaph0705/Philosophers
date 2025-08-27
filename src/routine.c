@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 18:27:24 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 19:21:24 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ void	*routine(void *p_philo)
 
 		if (do_eat(philo))
 			break ;
-		if (!safe_mutex_lock(&philo->data->m_stop, philo->data))
+/* 		if (!safe_mutex_lock(&philo->data->m_stop, philo->data))
 			return (NULL);
 		stop = philo->data->simulation_stop;
-		pthread_mutex_unlock(&philo->data->m_stop);
+		pthread_mutex_unlock(&philo->data->m_stop); */
 	}
 	return (NULL);
 }
