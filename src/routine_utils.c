@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 16:49:16 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 18:03:33 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ int	do_die(t_philo *philo)
 	time_t	actual;
 
 	actual = get_time_in_ms() - philo->start_time;
-	if (safe_mutex_lock(&philo->data->m_print, philo->data))
-		printf("%ld %d died\n", actual, philo->id);
+	if (!safe_mutex_lock(&philo->data->m_print, philo->data))
+		return (1);
+	printf("%ld %d died\n", actual, philo->id);
 	pthread_mutex_unlock(&philo->data->m_print);
 	philo->is_dead = 1;
 	philo->data->simulation_stop = 1;
 	pthread_mutex_unlock(&philo->data->m_death);
-	return (42);
+	return (0);
 }
 
 int	get_target_fork(t_philo *philo, int hand)
@@ -75,7 +76,7 @@ int	lonely_routine(t_philo *philo)
 	get_target_fork(philo, 0);
 	put_forks(philo, 1);
 	custom_usleep(philo, philo->time_to_die);
-	return (do_die(philo), check_death(philo), 1);
+	return (do_die(philo), 1);
 }
 
 int	get_forks(t_philo *philo)

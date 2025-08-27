@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 23:33:53 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 16:37:10 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/27 18:23:03 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ void	*monitor(void *arg)//TODO à redécouper
 				return (NULL);
 			pthread_mutex_unlock(&(data->philos[i]->m_status));
 			i++;
+		}
+		if (nb_meal_reached(data))
+		{
+			safe_mutex_lock(&(data->m_stop), data);
+			data->simulation_stop = 1;
+			pthread_mutex_unlock(&(data->m_stop));
+			return (NULL);
 		}
 	}
 	return (NULL);
