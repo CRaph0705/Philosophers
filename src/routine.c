@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 19:21:24 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:47:55 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,13 @@ int	do_eat(t_philo *philo)
 	if (get_forks(philo))
 		return (1);
 	if (!safe_mutex_lock(&philo->data->m_print, philo->data))
-		return (1);
+		return (put_forks(philo, 2), 1);
 	printf("%ld %d is eating\n",
 		get_time_in_ms() - philo->start_time, philo->id);
 	pthread_mutex_unlock(&philo->data->m_print);
+
+
+	
 	if (!safe_mutex_lock(&philo->data->m_meals, philo->data))
 		return (put_forks(philo, 2), 1);
 	pthread_mutex_lock(&philo->m_status);
@@ -50,13 +53,7 @@ int	do_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->m_meals);
 	if (custom_usleep(philo, philo->time_to_eat))
 		return (put_forks(philo, 2), 1);
-/* 	if (!safe_mutex_lock(&philo->data->m_meals, philo->data))
-		return (1);
-	if (philo->nb_meal == philo->data->max_meal)
-		philo->data->nb_meals++;
-	pthread_mutex_unlock(&philo->data->m_meals); */
-	put_forks(philo, 2);
-	return (do_sleep(philo));
+	return (put_forks(philo, 2), do_sleep(philo));
 }
 
 int	do_sleep(t_philo *philo)
@@ -95,8 +92,6 @@ void	*routine(void *p_philo)
 	bool	stop;
 
 	philo = (t_philo *)p_philo;
-	// wait_for_start(philo);
-
 	if (!safe_mutex_lock(&philo->data->m_stop, philo->data))
 		return (NULL);
 	stop = philo->data->simulation_stop;
@@ -106,34 +101,6 @@ void	*routine(void *p_philo)
 
 		if (do_eat(philo))
 			break ;
-/* 		if (!safe_mutex_lock(&philo->data->m_stop, philo->data))
-			return (NULL);
-		stop = philo->data->simulation_stop;
-		pthread_mutex_unlock(&philo->data->m_stop); */
 	}
 	return (NULL);
 }
-
-/* void	*routine(void *p_philo)
-{
-	t_philo	*philo;
-	bool	start;
-
-	start = 1;
-	philo = (t_philo *)p_philo;
-	// wait_for_start(philo);
-	while (1)
-	{
-		if (philo->data->max_meal >= 0
-			&& philo->nb_meal >= philo->data->max_meal)
-			break ;
-		if (start && philo->id % 2 == 1)
-		{
-			start = 0;
-			custom_usleep(philo, philo->time_to_eat - 10);
-		}
-		if (do_eat(philo))
-			break ;
-	}
-	return (NULL);
-} */

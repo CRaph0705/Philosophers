@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 18:05:59 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:06:33 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,20 @@ t_data	*init_data(int ac, char **av)
 
 void	destroy_mutexes(t_data *data)
 {
-	// pthread_mutex_unlock(&data->m_death);
+	pthread_mutex_lock(&data->m_death);
+	pthread_mutex_lock(&data->m_meals);
+	pthread_mutex_lock(&data->m_print);
+	pthread_mutex_lock(&data->m_ready);
+	pthread_mutex_lock(&data->m_stop);
+	pthread_mutex_unlock(&data->m_death);
 	pthread_mutex_destroy(&data->m_death);
-	// pthread_mutex_unlock(&data->m_meals);
+	pthread_mutex_unlock(&data->m_meals);
 	pthread_mutex_destroy(&data->m_meals);
-	// pthread_mutex_unlock(&data->m_print);
+	pthread_mutex_unlock(&data->m_print);
 	pthread_mutex_destroy(&data->m_print);
-	// pthread_mutex_unlock(&data->m_ready);
+	pthread_mutex_unlock(&data->m_ready);
 	pthread_mutex_destroy(&data->m_ready);
-	// pthread_mutex_unlock(&data->m_stop);
+	pthread_mutex_unlock(&data->m_stop);
 	pthread_mutex_destroy(&data->m_stop);
 }
 
@@ -118,10 +123,10 @@ void	free_data(t_data *data)
 {
 	if (data)
 	{
-		if (data->forks)
-			free_forks(data);
 		if (data->philos)
 			free_philos(data);
+		if (data->forks)
+			free_forks(data);
 		destroy_mutexes(data);
 		free(data);
 	}

@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:03:35 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 19:23:12 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:05:15 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	free_forks(t_data *data)
 {
 	int	i;
 
-	i = 0;
 	if (!data->forks || !data->forks)
 		return ;
+	i = 0;
 	while (i < data->nb_philo)
 	{
 		pthread_mutex_destroy(&data->forks[i]);

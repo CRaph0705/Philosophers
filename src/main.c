@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 19:10:58 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:56:53 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static	void	clean_wait(t_data *data)
 	int	tt_die;
 	int	tt_sleep;
 
-	pthread_mutex_lock(&data->m_stop);
+	// pthread_mutex_lock(&data->m_stop);
 	tt_die = data->time_to_die;
 	tt_sleep = data->time_to_sleep;
-	pthread_mutex_unlock(&data->m_stop);
+	// pthread_mutex_unlock(&data->m_stop);
 	top = tt_sleep;
 	if (tt_die > tt_sleep)
 		top = tt_die;
