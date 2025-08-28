@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 18:03:33 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:18:44 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		do_die(t_philo *philo);
 int		get_forks(t_philo *philo);
 void	put_forks(t_philo *philo, int nb_forks);
 int		get_target_fork(t_philo *philo, int hand);
+int		put_target_fork(t_philo *philo, int hand);
 
 void	wait_for_start(t_philo *philo)
 {
@@ -64,10 +65,19 @@ int	get_target_fork(t_philo *philo, int hand)
 			return (1);
 	}
 	if (!safe_mutex_lock(&philo->data->m_print, philo->data))
-		return (1);
+		return (put_forks(philo, 1), 1);
 	printf("%ld %d has taken a fork\n",
 		get_time_in_ms() - philo->start_time, philo->id);
 	pthread_mutex_unlock(&philo->data->m_print);
+	return (0);
+}
+
+int	put_target_fork(t_philo *philo, int hand)
+{
+	if (hand == 0)
+		pthread_mutex_unlock(&philo->data->forks[philo->m_left]);
+	if (hand == 1)
+		pthread_mutex_unlock(&philo->data->forks[philo->m_right]);
 	return (0);
 }
 
@@ -90,7 +100,7 @@ int	get_forks(t_philo *philo)
 		if (get_target_fork(philo, 0))
 			return (put_forks(philo, 1), 1);
 	}
-	else
+	if (philo->id % 2 == 0)
 	{
 		if (get_target_fork(philo, 0))
 			return (1);
@@ -102,17 +112,17 @@ int	get_forks(t_philo *philo)
 
 void	put_forks(t_philo *philo, int nb_forks)
 {
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 1)
 	{
-		pthread_mutex_unlock(&philo->data->forks[philo->m_right]);
+		put_target_fork(philo, 1);
 		if (nb_forks > 1)
-			pthread_mutex_unlock(&philo->data->forks[philo->m_left]);
+			put_target_fork(philo, 0);
 	}
 	else
 	{
-		pthread_mutex_unlock(&philo->data->forks[philo->m_left]);
+		put_target_fork(philo, 0);
 		if (nb_forks > 1)
-			pthread_mutex_unlock(&philo->data->forks[philo->m_right]);
+			put_target_fork(philo, 1);
 	}
 	return ;
 }

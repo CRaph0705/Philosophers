@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 16:16:20 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 18:40:11 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:21:30 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	is_philo_dead(t_data *data, long now, int i)
 	if ((now - philo->last_meal) > data->time_to_die)
 	{
 		if (!safe_mutex_lock(&(data->m_print), data))
-			return (TRUE);
-		printf("%ld %d died\n", now - data->start_time, philo->id);
-		pthread_mutex_unlock(&(data->m_print));
+			return (1);
 		pthread_mutex_lock(&(data->m_stop));
+		printf("%ld %d died\n", now - data->start_time, philo->id);
 		data->simulation_stop = 1;
 		pthread_mutex_unlock(&(data->m_stop));
+		pthread_mutex_unlock(&(data->m_print));
 		pthread_mutex_unlock(&(philo->m_status));
-		return (TRUE);
+		return (1);
 	}
-	return (FALSE);
+	return (0);
 }

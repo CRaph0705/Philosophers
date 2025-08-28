@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:49:42 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 15:15:55 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:37:13 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ void	free_philo(t_philo *philo)
 {
 	if (!philo)
 		return ;
+	// put_forks(philo, 2);
+	pthread_mutex_lock(&philo->m_status);
+	pthread_mutex_unlock(&philo->m_status);
+	pthread_mutex_destroy(&philo->m_status);
 	free(philo);
 }
 
