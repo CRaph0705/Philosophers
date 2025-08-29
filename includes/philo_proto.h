@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:37:49 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 18:18:07 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/29 10:27:00 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,11 @@ void	*monitor(void *arg);
 int		safe_mutex_lock(pthread_mutex_t *m, t_data *data);
 int		is_philo_dead(t_data *data, long now, int i);
 int		nb_meal_reached(t_data *data);
+
+void	wait_for_start(t_philo *philo);
+int		start_sim(t_data *data);
+int		stop_sim(t_data *data, int stop);
+int		launch_monitor(t_data *data);
+int		launch_philos(t_data *data);
 
 #endif

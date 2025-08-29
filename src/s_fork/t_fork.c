@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:03:35 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/28 17:05:15 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/29 10:17:27 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	init_forks(t_data *data)
 		i++;
 	}
 	data->forks = mtx_array;
-	return (0);
+	return (init_philo(data));
 }
 
 void	free_forks(t_data *data)

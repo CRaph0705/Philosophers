@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 00:52:59 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/27 16:08:38 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/29 10:02:35 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,10 @@
 int	custom_usleep(t_philo *philo, long duration_ms)
 {
 	long	start;
+
 	(void)philo;
 	start = get_time_in_ms();
 	while (get_time_in_ms() - start < duration_ms)
-	{
-		// if (check_death(philo))
-		// 	return (1);
-		// printf("timestamp = %ld, id = %d\n", start, philo->id);
 		usleep(100);
-	}
 	return (0);
 }

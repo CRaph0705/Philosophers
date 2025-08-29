@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/28 16:06:33 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/29 10:17:31 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	init_mtx(t_data *data)
 	if (pthread_mutex_init(&stop, NULL) != 0)
 		return (ft_putstr_fd("Error : mutex error", 2), 1);
 	data->m_stop = stop;
-	return (0);
+	return (init_forks(data));
 }
 
 t_data	*init_data(int ac, char **av)
@@ -92,10 +92,6 @@ t_data	*init_data(int ac, char **av)
 	data->ready_count = 0;
 	data->nb_meals = 0;
 	if (init_mtx(data))
-		return (free_data(data), NULL);
-	if (init_forks(data))
-		return (free_data(data), NULL);
-	if (init_philo(data))
 		return (free_data(data), NULL);
 	return (data);
 }

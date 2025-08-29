@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:55:24 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/28 15:56:53 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/29 10:12:28 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,6 @@
  * • To prevent philosophers from duplicating forks,
  * you should protect each fork’s state with a mutex.
 */
-
-static void		clean_wait(t_data *data);
-
-static	void	clean_wait(t_data *data)
-{
-	int	top;
-	int	tt_die;
-	int	tt_sleep;
-
-	// pthread_mutex_lock(&data->m_stop);
-	tt_die = data->time_to_die;
-	tt_sleep = data->time_to_sleep;
-	// pthread_mutex_unlock(&data->m_stop);
-	top = tt_sleep;
-	if (tt_die > tt_sleep)
-		top = tt_die;
-	usleep(top * 1000);
-}
 
 int	set_last_meal(t_data *data)
 {
@@ -62,88 +44,6 @@ int	set_last_meal(t_data *data)
 		i++;
 	}
 	return (0);
-}
-/* void	*routine(void	*p_philo)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)p_philo;
-	safe_mutex_lock(&philo->data->m_print, philo->data);
-	printf("routine\n");
-	pthread_mutex_unlock(&philo->data->m_print);
-	return (NULL);
-} */
-
-/* void	*monitor(void *p_data)
-{
-	t_data	*data;
-
-	data = (t_data *)p_data;
-	safe_mutex_lock(&data->m_print, data);
-	printf("monitor\n");
-	pthread_mutex_unlock(&data->m_print);
-	return (NULL);
-} */
-
-int	start_sim(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (!data)
-		return (1);
-	if (!data->philos)
-		return (ft_putstr_fd("Error : no philos\n", 2), 1);
-	set_last_meal(data);
-	if (pthread_create(&data->monitor, NULL, &monitor, data) != 0)
-	{
-		pthread_mutex_lock(&data->m_stop);
-		data->simulation_stop = 1;
-		pthread_mutex_unlock(&data->m_stop);
-		return (ft_putstr_fd("Monitor thread error\n", 2), i);
-	}
-	while (i < data->nb_philo)
-	{
-		if (pthread_create(&data->philos[i]->thread, NULL,
-				&routine, (void *)data->philos[i]) != 0)
-		{
-			pthread_mutex_lock(&data->m_stop);
-			data->simulation_stop = 1;
-			pthread_mutex_unlock(&data->m_stop);
-			return (ft_putstr_fd("Thread error\n", 2), i);
-		}
-		i++;
-		pthread_mutex_lock(&data->m_meals);
-		data->ready_count++;
-		pthread_mutex_unlock(&data->m_meals);
-	}
-	return (i);
-}
-
-int	stop_sim(t_data *data, int stop)
-{
-	int		i;
-
-	i = 0;
-	clean_wait(data);
-	if (pthread_join(data->monitor, NULL) != 0)
-	{
-		pthread_mutex_lock(&data->m_print);
-		ft_putstr_fd("Thread join error\n", 2);
-		pthread_mutex_unlock(&data->m_print);
-	}
-	while (i < stop)
-	{
-		if (pthread_join(data->philos[i]->thread, NULL) != 0)
-		{
-			pthread_mutex_lock(&data->m_print);
-			ft_putstr_fd("Thread join error\n", 2);
-			pthread_mutex_unlock(&data->m_print);
-			return (1);
-		}
-		i++;
-	}
-	return (free_data(data), 0);
 }
 
 int	main(int ac, char **av)
