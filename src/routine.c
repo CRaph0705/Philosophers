@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/29 10:04:17 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/29 11:11:40 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,6 @@ int		do_eat(t_philo *philo);
 int		do_sleep(t_philo *philo);
 int		do_think(t_philo *philo);
 void	*routine(void *p_philo);
-void	meal_check(t_philo *philo);
-
-/* void	meal_check(t_philo *philo)
-{
-	if (check_death(philo))
-		return ;
-	pthread_mutex_lock(&philo->data->m_meals);
-	philo->nb_meal++;
-	if (philo->data->max_meal > 0 && philo->nb_meal >= philo->data->max_meal)
-		philo->data->nb_meals++;
-	pthread_mutex_unlock(&philo->data->m_meals);
-	if (philo->data->max_meal > 0
-		&& philo->data->nb_meals >= philo->data->nb_philo)
-		philo->data->simulation_stop = 1;
-} */
 
 int	do_eat(t_philo *philo)
 {
