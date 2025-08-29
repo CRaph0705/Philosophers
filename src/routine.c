@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:56:06 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/28 16:47:55 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/29 10:04:17 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ int	do_eat(t_philo *philo)
 	printf("%ld %d is eating\n",
 		get_time_in_ms() - philo->start_time, philo->id);
 	pthread_mutex_unlock(&philo->data->m_print);
-
-
-	
 	if (!safe_mutex_lock(&philo->data->m_meals, philo->data))
 		return (put_forks(philo, 2), 1);
 	pthread_mutex_lock(&philo->m_status);
@@ -98,7 +95,6 @@ void	*routine(void *p_philo)
 	pthread_mutex_unlock(&philo->data->m_stop);
 	while (stop == 0)
 	{
-
 		if (do_eat(philo))
 			break ;
 	}

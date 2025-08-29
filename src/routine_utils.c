@@ -6,51 +6,16 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:32:32 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/28 17:18:44 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/29 10:10:27 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	wait_for_start(t_philo *philo);
-int		do_die(t_philo *philo);
 int		get_forks(t_philo *philo);
 void	put_forks(t_philo *philo, int nb_forks);
 int		get_target_fork(t_philo *philo, int hand);
 int		put_target_fork(t_philo *philo, int hand);
-
-void	wait_for_start(t_philo *philo)
-{
-	bool	ready;
-
-	pthread_mutex_lock(&philo->data->m_ready);
-	philo->data->ready_count++;
-	pthread_mutex_unlock(&philo->data->m_ready);
-	while (1)
-	{
-		pthread_mutex_lock(&philo->data->m_ready);
-		ready = (philo->data->ready_count == philo->data->nb_philo);
-		pthread_mutex_unlock(&philo->data->m_ready);
-		if (ready)
-			break ;
-		usleep(100);
-	}
-}
-
-int	do_die(t_philo *philo)
-{
-	time_t	actual;
-
-	actual = get_time_in_ms() - philo->start_time;
-	if (!safe_mutex_lock(&philo->data->m_print, philo->data))
-		return (1);
-	printf("%ld %d died\n", actual, philo->id);
-	pthread_mutex_unlock(&philo->data->m_print);
-	philo->is_dead = 1;
-	philo->data->simulation_stop = 1;
-	pthread_mutex_unlock(&philo->data->m_death);
-	return (0);
-}
 
 int	get_target_fork(t_philo *philo, int hand)
 {

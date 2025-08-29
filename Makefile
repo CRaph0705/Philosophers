@@ -6,7 +6,7 @@
 #    By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:55:20 by rcochran          #+#    #+#              #
-#    Updated: 2025/08/27 18:18:31 by rcochran         ###   ########.fr        #
+#    Updated: 2025/08/29 10:23:29 by rcochran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ FILES		= 	s_data/t_data \
 				routine \
 				time \
 				safe_mutex_lock \
+				sim \
+				threads \
 				nb_meal_reached
 
 SRC_DIR		= 	src/
