@@ -6,7 +6,7 @@
 /*   By: rcochran <rcochran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:47:30 by rcochran          #+#    #+#             */
-/*   Updated: 2025/08/29 10:17:31 by rcochran         ###   ########.fr       */
+/*   Updated: 2025/08/29 12:56:51 by rcochran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	invalid_args(int ac, char **av)
 		meal_number = 1;
 	if (nb_philo < 1 || nb_philo > 200)
 		return (ft_putstr_fd("Error: wrong philo number given\n", 2), 2);
-	if (time_to_die < 0 || time_to_eat < 0 || time_to_sleep < 0)
+	if (time_to_die < 1 || time_to_eat < 1 || time_to_sleep < 1)
 		return (ft_putstr_fd("Error: wrong time number given\n", 2), 3);
-	if (meal_number < 0)
+	if (meal_number < 1)
 		return (ft_putstr_fd("Error: wrong meal number given\n", 2), 4);
 	return (0);
 }
